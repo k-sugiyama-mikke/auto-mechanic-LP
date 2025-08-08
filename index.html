@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>スライド式アンケートフォーム</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css" />
+	<link rel="stylesheet" href="style.css" />
+	<!-- SwiperのCSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+
+<body>
+	<!-- ヘッダー -->
+	<header class="mechanic-header">
+		<img src="./img/service-logo.png" alt="" class="service-logo" />
+		<div class="permission-number">厚生労働大臣許可 13-ユ-309652</div>
+	</header>
+	<div class="current-job-date__wrapper">
+		<div class="current-job-date">2025/8/7 最終求人更新</div>
+	</div>
+	<div id="mechanic-first-view" class="mechanic-first-view">
+		<div class="mechanic-first-view__inner">
+			<h1>自動車整備士特化の<br />転職エージェント</h1>
+			<img src="./img/fv-lp-human.png" alt="" class="mechanic-first-view__human-img" />
+		</div>
+	</div>
+
+	<!-- お気持ちはどちらに近いですか？ダイアログ -->
+	<div id="intension-dialog" class="intension-dialog">
+		<div class="intension-dialog__inner">
+			<div class="intension-dialog__coution"><img src="./img/watch-icon.png" alt="">30秒で完了！非公開求人も多数紹介中！</div>
+			<div class="intension-dialog__inner__content">
+				<div class="intension-dialog__title">お気持ちはどちらに近いですか？</div>
+				<button id="intension-dialog__button-upper" type="button"
+					class="intension-dialog__button-upper">近いうちに転職したい</button>
+				<button id="intension-dialog__button-bottom" type="button"
+					class="intension-dialog__button-bottom">今は情報収集したい</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="form-screen" class="form-screen invisible">
+		<div class="form-wrapper">
+			<div id="hand-icon" class="hand-icon"></div>
+			<div class="progress-container-wrapper">
+				<div id="progress-text" class="progress-text">
+					<div class="progress-steps">STEPS</div>
+					<div>
+						<span id="progress-numerator" class="progress-numerator"></span>
+						/<span id="progress-denominator" class="progress-denominator"></span>
+					</div>
+				</div>
+				<div class="progress-container">
+					<div id="progress-bar" class="progress-bar"></div>
+				</div>
+			</div>
+
+			<div class="form-container">
+				<form id="multiStepForm">
+
+					<input type="hidden" id="current-intention" value="" name="current-intention" />
+
+					<!-- Step 1 -->
+					<div class="form-step checkbox active">
+						<div class="form-step__inner">
+							<h2 class="form-title"><span class="form-title__before"></span>どんな資格をお持ちですか？（複数選択可）</h2>
+							<div class="form-checkbox-group">
+								<label class="form-checkbox-wrapper">
+									<input class="form-checkbox" type="checkbox" name="job[]" value="自動車整備士1級" hidden>
+									<div class="form-checkbox-label">
+										<img class="form-checkbox-img" src="./img/mechanic-1.png" alt="">
+										<span class="form-checkbox-text">自動車整備士1級</span>
+									</div>
+								</label>
+								<label class="form-checkbox-wrapper">
+									<input class="form-checkbox" type="checkbox" name="job[]" value="自動車整備士2級" hidden>
+									<div class="form-checkbox-label">
+										<img class="form-checkbox-img" src="./img/mechanic-2.png" alt="">
+										<span class="form-checkbox-text">自動車整備士2級</span>
+									</div>
+								</label>
+								<label class="form-checkbox-wrapper">
+									<input class="form-checkbox" type="checkbox" name="job[]" value="自動車整備士3級" hidden>
+									<div class="form-checkbox-label">
+										<img class="form-checkbox-img" src="./img/mechanic-3.png" alt="">
+										<span class="form-checkbox-text">自動車整備士3級</span>
+									</div>
+								</label>
+								<label class="form-checkbox-wrapper">
+									<input class="form-checkbox" type="checkbox" name="job[]" value="自動車検査員" hidden>
+									<div class="form-checkbox-label">
+										<img class="form-checkbox-img" src="./img/mechanic-4.png" alt="">
+										<span class="form-checkbox-text">自動車検査員</span>
+									</div>
+								</label>
+								<label class="form-checkbox-wrapper">
+									<input class="form-checkbox" type="checkbox" name="job[]" value="無資格" hidden>
+									<div class="form-checkbox-label">
+										<img class="form-checkbox-img" src="./img/mechanic-5.png" alt="">
+										<span class="form-checkbox-text">無資格</span>
+									</div>
+								</label>
+								<label class="form-checkbox-wrapper">
+									<input class="form-checkbox" type="checkbox" name="job[]" value="その他" hidden>
+									<div class="form-checkbox-label">
+										<img class="form-checkbox-img" src="" alt="">
+										その他
+									</div>
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<!-- Step 2 -->
+					<div class="form-step radio">
+						<div class="form-step__inner">
+							<h2 class="form-title"><span class="form-title__before"></span>ご希望の年収は？</h2>
+							<div class="form-radio__wrapper">
+								<label class="form-radio-label"><input class="form-radio" type="radio" name="money" value="300万円台"
+										hidden>
+									<div class="form-radio-visible">300万円台</div>
+								</label>
+								<label class="form-radio-label"><input class="form-radio" type="radio" name="money" value="400万円台"
+										hidden>
+									<div class="form-radio-visible">400万円台</div>
+								</label>
+								<label class="form-radio-label"><input class="form-radio" type="radio" name="money" value="500万円台"
+										hidden>
+									<div class="form-radio-visible">500万円台</div>
+								</label>
+								<label class="form-radio-label"><input class="form-radio" type="radio" name="money" value="600万円台以上"
+										hidden>
+									<div class="form-radio-visible">600万円台以上</div>
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<!-- Step 3 -->
+					<div class="form-step">
+						<div id="step-3-err-msg__wrapper" class="step-3-err-msg__wrapper invisible">
+							<span id="step-3-err-msg" class="step-err-msg">
+								郵便番号は7桁、生まれ年は4桁の数字で入力してください
+							</span>
+						</div>
+						<div class="form-step__inner">
+							<div class="form-step__box">
+								<h2 class="form-title"><span class="form-title__before"></span>お住まいの郵便番号</h2>
+								<div class="input-form__wrapper">
+									〒<input id="zip-code" class="form-input__text" type="text" name="address" placeholder="例：5740006"
+										required>
+								</div>
+							</div>
+							<div class="form-step__box">
+								<h2 class="form-title"><span class="form-title__before"></span>生まれ年</h2>
+								<div class="input-form__wrapper">
+									<input id="birth" class="form-input__text" type="text" name="birth" placeholder="例：1999" required>年
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Step 4 -->
+					<div class="form-step">
+						<!-- <div id="step-4-err-msg__wrapper" class="step-4-err-msg__wrapper invisible">
+							<span id="step-4-err-msg" class="step-err-msg"></span>
+						</div> -->
+						<div class="form-step__inner">
+							<div class="form-step__box">
+								<h2 class="form-title"><span class="form-title__before"></span>お名前</h2>
+								<div class="input-form__wrapper">
+									<input id="name" class="form-input__text" type="text" name="name" placeholder="例：整備士 太郎" required>
+								</div>
+							</div>
+							<div class="form-step__box">
+								<h2 class="form-title"><span class="form-title__before"></span>携帯番号</h2>
+								<div class="input-form__wrapper">
+									<input id="tel" class="form-input__text" type="tel" name="tel" placeholder="例）08012345678（ハイフンなし）"
+										required>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="action-btn-group">
+				<div class="action-btn-inner">
+					<button id="prev-btn" type="button" class="prev-btn">＜ 戻る</button>
+					<button id="next-btn" type="button" class="next-btn">次へ</button>
+					<button id="submit-btn" type="submit" class="submit-btn">送信</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="body-space"></div>
+
+	<div id="slider" class="slider-wrapper">
+		<span class="slider-header">-ご紹介可能な求人の一例-</span>
+		<div class="slider-track">
+			<!-- 同じスライドを2セット並べることでループ風に -->
+			<div class="slide">
+				<img src="./img/slider_1.png" alt="" class="slide-img" />
+				<div class="slide-content">
+					<div class="slide-content__job">自動車検査員</div>
+					<div class="slide-content__money">年収600万円～</div>
+				</div>
+			</div>
+			<div class="slide">
+				<img src="./img/slider_2.png" alt="" class="slide-img" />
+				<div class="slide-content">
+					<div class="slide-content__job">自動車検査員</div>
+					<div class="slide-content__money">年収600万円～</div>
+				</div>
+			</div>
+			<div class="slide">
+				<img src="./img/slider_3.png" alt="" class="slide-img" />
+				<div class="slide-content">
+					<div class="slide-content__job">自動車検査員</div>
+					<div class="slide-content__money">年収600万円～</div>
+				</div>
+			</div>
+			<div class="slide">
+				<img src="./img/slider_4.png" alt="" class="slide-img" />
+				<div class="slide-content">
+					<div class="slide-content__job">自動車検査員</div>
+					<div class="slide-content__money">年収600万円～</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer class="footer">
+		<div class="footer-upper">
+			<ul>
+				<li>プライバシーポリシー</li>
+				<li>会社概要</li>
+			</ul>
+		</div>
+		<div class="footer-bottom">
+			Ⓒmikke All Rights Reserved.
+		</div>
+	</footer>
+	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+	<script src="app.js"></script>
+</body>
+
+</html>
