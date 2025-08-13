@@ -271,7 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const data = collectFormData();
 
-      location.replace("/complete.html");
+      location.replace("./complete.html");
       return;
 
       console.log("送信するデータ：", data);
