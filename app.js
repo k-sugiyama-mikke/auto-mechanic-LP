@@ -271,6 +271,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const data = collectFormData();
 
+      location.replace("/complete.html");
+      return;
+
       console.log("送信するデータ：", data);
       const API_ENDPOINT = "https://d3akfz01stgoxo.cloudfront.net/submit";
 
