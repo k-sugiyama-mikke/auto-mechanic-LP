@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const progressNumerator = document.getElementById("progress-numerator");
   const progressDenominator = document.getElementById("progress-denominator");
   let currentPage = 0;
-  let isFirstView = true;
 
   progressDenominator.textContent = steps.length;
   init();
@@ -72,6 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const mechanicFirstView = document.getElementById("mechanic-first-view");
       const form = document.getElementById("form-screen");
       const slider = document.getElementById("slider");
+      const currentPlan = document.getElementById("current-plan");
+      currentPlan.value = "近いうちに転職したい";
 
       intensionDialog.classList.add("invisible");
       mechanicFirstView.classList.add("invisible");
@@ -89,6 +90,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const mechanicFirstView = document.getElementById("mechanic-first-view");
       const form = document.getElementById("form-screen");
       const slider = document.getElementById("slider");
+      const currentPlan = document.getElementById("current-plan");
+      currentPlan.value = "今は情報収集したい";
 
       intensionDialog.classList.add("invisible");
       mechanicFirstView.classList.add("invisible");
@@ -260,10 +263,16 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("submit-btn")
     .addEventListener("click", async function () {
+      const submitBtn = document.getElementById("submit-btn");
+      submitBtn.disabled = true;
+
+      const loading = document.getElementById("loading");
+      loading.classList.remove("invisible");
+
       const data = collectFormData();
 
       console.log("送信するデータ：", data);
-      return;
+      const API_ENDPOINT = "https://d3akfz01stgoxo.cloudfront.net/submit";
 
       try {
         const res = await fetch(API_ENDPOINT, {
@@ -274,29 +283,17 @@ document.addEventListener("DOMContentLoaded", () => {
           body: JSON.stringify(data),
         });
 
-        if (!res.ok) throw new Error("送信に失敗しました");
-
         const result = await res.json();
+        if (res.ok) {
+          location.replace("/complete.html");
+        } else {
+          throw new Error("送信に失敗しました");
+        }
         console.log("送信成功:", result);
-
-        // ✅ 成功後の画面遷移やモーダル表示など
-        alert("送信が完了しました！");
-        // form.reset(); // フォームリセットする場合
       } catch (err) {
-        console.error("送信エラー:", err);
-        alert("送信に失敗しました。もう一度お試しください。");
+        location.replace("/complete.html");
       }
     });
-
-  //期待されるリクエストボディ構造
-  // 	{
-  //   "job[]": ["自動車整備士1級", "自動車整備士2級"],
-  //   "work": "500万円台",
-  //   "address": "5740006",
-  //   "birth": "1999",
-  //   "name": "整備士 太郎",
-  //   "tel": "08012345678"
-  // }
 
   /**
    * 入力データの収集
@@ -306,6 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("multiStepForm");
     const inputs = form.querySelectorAll("input");
     const formData = {};
+    const params = new URLSearchParams(window.location.search);
 
     inputs.forEach((input) => {
       const name = input.name;
@@ -314,14 +312,38 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!name) return; // name属性がない場合はスキップ
 
       if (input.type === "checkbox") {
-        if (!formData[name]) formData[name] = [];
-        if (input.checked) formData[name].push(value);
+        const keyName = name.replace(/\[\]$/, ""); // [] を削除
+        if (!formData[keyName]) formData[keyName] = [];
+        if (input.checked) formData[keyName].push(value);
       } else if (input.type === "radio") {
         if (input.checked) formData[name] = value;
       } else {
         formData[name] = value;
       }
     });
+
+    //広告媒体を取得する
+    const utmSource = params.get("utm_source");
+    switch (utmSource) {
+      case ("facebook", "instagram"):
+        formData.adMedia = "meta";
+        formData.metaPlatform = utmSource;
+        formData.metaAdId = "meta";
+
+        break;
+      case "google":
+        formData.adMedia = "google";
+        formData.utmSource = utmSource;
+        formData.utmMedium = params.get("utm_medium") || "";
+        formData.utmTerm = params.get("utm_term") || "";
+        formData.matchtype = params.get("matchtype") || "";
+        formData.device = params.get("device") || "";
+        formData.gclid = params.get("gclid") || "";
+
+        break;
+      default:
+        break;
+    }
 
     return formData;
   }

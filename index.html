@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>スライド式アンケートフォーム</title>
+	<title>自動車整備士特化の転職サービス</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css" />
 	<link rel="stylesheet" href="style.css" />
 	<!-- SwiperのCSS -->
@@ -41,6 +41,13 @@
 		</div>
 	</div>
 
+	<!-- ローディング画面 -->
+	<div id="loading" class="loading invisible">
+		<div class="spiner">
+		</div>
+	</div>
+
+
 	<div id="form-screen" class="form-screen invisible">
 		<div class="form-wrapper">
 			<div id="hand-icon" class="hand-icon"></div>
@@ -60,7 +67,8 @@
 			<div class="form-container">
 				<form id="multiStepForm">
 
-					<input type="hidden" id="current-intention" value="" name="current-intention" />
+					<input id="lp-route" type="hidden" name="lpRoute" value="ankert-mechanic">
+					<input id="current-plan" type="hidden" name="currentPlan" value="">
 
 					<!-- Step 1 -->
 					<div class="form-step checkbox active">
@@ -68,42 +76,42 @@
 							<h2 class="form-title"><span class="form-title__before"></span>どんな資格をお持ちですか？（複数選択可）</h2>
 							<div class="form-checkbox-group">
 								<label class="form-checkbox-wrapper">
-									<input class="form-checkbox" type="checkbox" name="job[]" value="自動車整備士1級" hidden>
+									<input class="form-checkbox" type="checkbox" name="qualification[]" value="自動車整備士1級" hidden>
 									<div class="form-checkbox-label">
 										<img class="form-checkbox-img" src="./img/mechanic-1.png" alt="">
 										<span class="form-checkbox-text">自動車整備士1級</span>
 									</div>
 								</label>
 								<label class="form-checkbox-wrapper">
-									<input class="form-checkbox" type="checkbox" name="job[]" value="自動車整備士2級" hidden>
+									<input class="form-checkbox" type="checkbox" name="qualification[]" value="自動車整備士2級" hidden>
 									<div class="form-checkbox-label">
 										<img class="form-checkbox-img" src="./img/mechanic-2.png" alt="">
 										<span class="form-checkbox-text">自動車整備士2級</span>
 									</div>
 								</label>
 								<label class="form-checkbox-wrapper">
-									<input class="form-checkbox" type="checkbox" name="job[]" value="自動車整備士3級" hidden>
+									<input class="form-checkbox" type="checkbox" name="qualification[]" value="自動車整備士3級" hidden>
 									<div class="form-checkbox-label">
 										<img class="form-checkbox-img" src="./img/mechanic-3.png" alt="">
 										<span class="form-checkbox-text">自動車整備士3級</span>
 									</div>
 								</label>
 								<label class="form-checkbox-wrapper">
-									<input class="form-checkbox" type="checkbox" name="job[]" value="自動車検査員" hidden>
+									<input class="form-checkbox" type="checkbox" name="qualification[]" value="自動車検査員" hidden>
 									<div class="form-checkbox-label">
 										<img class="form-checkbox-img" src="./img/mechanic-4.png" alt="">
 										<span class="form-checkbox-text">自動車検査員</span>
 									</div>
 								</label>
 								<label class="form-checkbox-wrapper">
-									<input class="form-checkbox" type="checkbox" name="job[]" value="無資格" hidden>
+									<input class="form-checkbox" type="checkbox" name="qualification[]" value="無資格" hidden>
 									<div class="form-checkbox-label">
 										<img class="form-checkbox-img" src="./img/mechanic-5.png" alt="">
 										<span class="form-checkbox-text">無資格</span>
 									</div>
 								</label>
 								<label class="form-checkbox-wrapper">
-									<input class="form-checkbox" type="checkbox" name="job[]" value="その他" hidden>
+									<input class="form-checkbox" type="checkbox" name="qualification[]" value="その他" hidden>
 									<div class="form-checkbox-label">
 										<img class="form-checkbox-img" src="" alt="">
 										その他
@@ -118,21 +126,21 @@
 						<div class="form-step__inner">
 							<h2 class="form-title"><span class="form-title__before"></span>ご希望の年収は？</h2>
 							<div class="form-radio__wrapper">
-								<label class="form-radio-label"><input class="form-radio" type="radio" name="money" value="300万円台"
+								<label class="form-radio-label"><input class="form-radio" type="radio" name="money" value="300万円"
 										hidden>
-									<div class="form-radio-visible">300万円台</div>
+									<div class="form-radio-visible">300万円</div>
 								</label>
-								<label class="form-radio-label"><input class="form-radio" type="radio" name="money" value="400万円台"
+								<label class="form-radio-label"><input class="form-radio" type="radio" name="money" value="400万円"
 										hidden>
-									<div class="form-radio-visible">400万円台</div>
+									<div class="form-radio-visible">400万円</div>
 								</label>
-								<label class="form-radio-label"><input class="form-radio" type="radio" name="money" value="500万円台"
+								<label class="form-radio-label"><input class="form-radio" type="radio" name="money" value="500万円"
 										hidden>
-									<div class="form-radio-visible">500万円台</div>
+									<div class="form-radio-visible">500万円</div>
 								</label>
-								<label class="form-radio-label"><input class="form-radio" type="radio" name="money" value="600万円台以上"
+								<label class="form-radio-label"><input class="form-radio" type="radio" name="money" value="600万円以上"
 										hidden>
-									<div class="form-radio-visible">600万円台以上</div>
+									<div class="form-radio-visible">600万円以上</div>
 								</label>
 							</div>
 						</div>
@@ -149,7 +157,7 @@
 							<div class="form-step__box">
 								<h2 class="form-title"><span class="form-title__before"></span>お住まいの郵便番号</h2>
 								<div class="input-form__wrapper">
-									〒<input id="zip-code" class="form-input__text" type="text" name="address" placeholder="例：5740006"
+									〒<input id="zip-code" class="form-input__text" type="text" name="zip" placeholder="例：5740006"
 										required>
 								</div>
 							</div>
@@ -317,7 +325,7 @@
 			</ul>
 		</div>
 		<div class="footer-bottom">
-			Ⓒmikke All Rights Reserved.
+			Ⓒ 2024 mikke inc.
 		</div>
 	</footer>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
