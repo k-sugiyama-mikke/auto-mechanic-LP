@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("terms-dialog-close")
     .addEventListener("click", () => {
-      console.log("クリックされた");
       const dialog = document.getElementById("terms-dialog");
       console.log(dialog);
       dialog.classList.add("invisible");
@@ -15,8 +14,27 @@ document.addEventListener("DOMContentLoaded", () => {
    * 利用規約モーダルを閉じる（画面）
    */
   document.getElementById("terms-dialog").addEventListener("click", () => {
-    console.log("クリックされた");
     const dialog = document.getElementById("terms-dialog");
+    console.log(dialog);
+    dialog.classList.add("invisible");
+  });
+
+  /**
+   * 会社概要モーダルを閉じる（×ボタン）
+   */
+  document
+    .getElementById("company-dialog-close")
+    .addEventListener("click", () => {
+      const dialog = document.getElementById("company-dialog");
+      console.log(dialog);
+      dialog.classList.add("invisible");
+    });
+
+  /**
+   * 利用規約モーダルを閉じる（画面）
+   */
+  document.getElementById("company-dialog").addEventListener("click", () => {
+    const dialog = document.getElementById("company-dialog");
     console.log(dialog);
     dialog.classList.add("invisible");
   });
