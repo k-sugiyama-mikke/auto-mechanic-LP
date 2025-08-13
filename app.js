@@ -271,7 +271,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const data = collectFormData();
 
-      location.replace("./complete.html");
+      const dir = location.pathname.replace(/[^/]+$/, ""); // 今いるディレクトリ（末尾をファイル扱いでカット）
+      location.replace(dir + "complete.html");
       return;
 
       console.log("送信するデータ：", data);
