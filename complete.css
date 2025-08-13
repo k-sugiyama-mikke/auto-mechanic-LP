@@ -10,7 +10,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 0.8rem 0;
-  font-size: 0.5rem;
+  font-size: 0.8rem;
   background-color: #1a47ab;
   color: #fff;
 }
@@ -19,7 +19,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .footer-upper li:first-child {
@@ -829,23 +829,3 @@ TimeRex
   font-weight: 600;
   white-space: nowrap;
 }
-
-/* モバイルで縦並びに */
-/* @media (max-width: 640px) {
-  .company-profile,
-  .company-profile tbody,
-  .company-profile tr,
-  .company-profile th,
-  .company-profile td {
-    display: block;
-    width: 100%;
-  }
-  .company-profile th {
-    border-bottom: none;
-    background: transparent;
-    padding-bottom: 0.3rem;
-  }
-  .company-profile td {
-    padding-top: 0;
-  }
-} */
