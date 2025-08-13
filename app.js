@@ -568,6 +568,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // フォーム4問目の監視対象の要素を取得
   const nameInput = document.getElementById("name");
   const telInput = document.getElementById("tel");
+  const telCouter = document.getElementById("tel-counter");
 
   // イベント設定
   [nameInput, telInput].forEach((input) => {
@@ -596,11 +597,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const nameValue = document.getElementById("name").value.trim();
     const telValue = document.getElementById("tel").value.trim();
 
+    const telLength = telValue.length;
+    telCouter.textContent = 11 - telLength;
+
     // 名前が空でない
     const nameValid = nameValue.length > 0;
 
     // 電話番号: 数字のみで10桁または11桁
-    const telValid = /^\d{10,11}$/.test(telValue);
+    const telValid = /^\d{11}$/.test(telValue);
 
     if (!nameValid) {
       res.result = false;

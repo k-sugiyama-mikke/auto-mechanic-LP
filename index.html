@@ -161,7 +161,7 @@
 								<div class="input-form__wrapper zip-form">
 									〒<input id="zip-code" class="form-input__text" type="text" name="zip" placeholder="例：5740006"
 										required>
-									<div class="zip-code-count-wrapper">あと<span id="zip-code-counter"></span>桁</div>
+									<div class="count-wrapper zip-code-count-wrapper">あと<span id="zip-code-counter"></span>桁</div>
 								</div>
 							</div>
 							<div class="form-step__box">
@@ -187,23 +187,25 @@
 							</div>
 							<div class="form-step__box">
 								<h2 class="form-title"><span class="form-title__before"></span>携帯番号</h2>
-								<div class="input-form__wrapper">
+								<div class="input-form__wrapper tel-form">
 									<input id="tel" class="form-input__text" type="tel" name="tel" placeholder="例）08012345678（ハイフンなし）"
 										required>
+									<div class="count-wrapper tel-counter-wrapper">あと<span id="tel-counter"></span>桁</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</form>
 			</div>
-			<div class="action-btn-group">
-				<div class="action-btn-inner">
-					<button id="prev-btn" type="button" class="prev-btn">＜ 戻る</button>
-					<button id="next-btn" type="button" class="next-btn">次へ</button>
-					<button id="submit-btn" type="submit" class="submit-btn"><span>利用規約に同意して</span><br>理想の求人を受け取る</button>
-				</div>
+			</form>
+		</div>
+		<div class="action-btn-group">
+			<div class="action-btn-inner">
+				<button id="prev-btn" type="button" class="prev-btn">＜ 戻る</button>
+				<button id="next-btn" type="button" class="next-btn">次へ</button>
+				<button id="submit-btn" type="submit" class="submit-btn"><span>利用規約に同意して</span><br>理想の求人を受け取る</button>
 			</div>
 		</div>
+	</div>
 	</div>
 
 	<div class="body-space"></div>

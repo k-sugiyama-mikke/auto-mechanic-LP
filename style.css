@@ -340,7 +340,7 @@ body {
   padding-top: 1px;
   position: relative;
   width: 100%;
-  overflow: hidden;
+  overflow: visible;
   padding: 0 10px;
 }
 
@@ -438,11 +438,17 @@ body {
   position: relative;
 }
 
-.zip-code-count-wrapper {
+.tel-form {
+  position: relative;
+}
+
+/***************************
+* カウンター
+***************************/
+
+.count-wrapper {
   position: absolute;
   content: "";
-  top: -10px;
-  right: 10px;
   padding: 0.2rem 1rem;
   background-color: #ececec;
   font-size: 0.7rem;
@@ -450,9 +456,19 @@ body {
   border-radius: 5px;
 }
 
-.zip-code-count-wrapper span {
+.count-wrapper span {
   font-size: 0.9rem;
   font-weight: bold;
+}
+
+.zip-code-count-wrapper {
+  top: -10px;
+  right: 10px;
+}
+
+.tel-counter-wrapper {
+  top: -10px;
+  right: 10px;
 }
 
 /***************
