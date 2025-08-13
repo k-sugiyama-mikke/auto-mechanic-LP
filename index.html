@@ -17,9 +17,11 @@
 		<img src="./img/service-logo.png" alt="" class="service-logo" />
 		<div class="permission-number">厚生労働大臣許可 13-ユ-309652</div>
 	</header>
+
 	<div class="current-job-date__wrapper">
 		<div class="current-job-date">2025/8/7 最終求人更新</div>
 	</div>
+	<div id="offer-label" class="offer-label invisible">ハローワーク非公開求人も多数紹介中！！</div>
 	<div id="mechanic-first-view" class="mechanic-first-view">
 		<div class="mechanic-first-view__inner">
 			<h1>自動車整備士特化の<br />転職エージェント</h1>
@@ -71,7 +73,7 @@
 					<input id="current-plan" type="hidden" name="currentPlan" value="">
 
 					<!-- Step 1 -->
-					<div class="form-step checkbox active">
+					<div id="form-step-1" class="form-step checkbox active">
 						<div class="form-step__inner">
 							<h2 class="form-title"><span class="form-title__before"></span>どんな資格をお持ちですか？（複数選択可）</h2>
 							<div class="form-checkbox-group">
@@ -122,7 +124,7 @@
 					</div>
 
 					<!-- Step 2 -->
-					<div class="form-step radio">
+					<div id="form-step-2" class="form-step radio">
 						<div class="form-step__inner">
 							<h2 class="form-title"><span class="form-title__before"></span>ご希望の年収は？</h2>
 							<div class="form-radio__wrapper">
@@ -147,8 +149,8 @@
 					</div>
 
 					<!-- Step 3 -->
-					<div class="form-step">
-						<div id="step-3-err-msg__wrapper" class="step-3-err-msg__wrapper invisible">
+					<div id="form-step-3" class="form-step">
+						<div id="step-3-err-msg__wrapper" class="step-3-err-msg__wrapper">
 							<span id="step-3-err-msg" class="step-err-msg">
 								郵便番号は7桁、生まれ年は4桁の数字で入力してください
 							</span>
@@ -156,9 +158,10 @@
 						<div class="form-step__inner">
 							<div class="form-step__box">
 								<h2 class="form-title"><span class="form-title__before"></span>お住まいの郵便番号</h2>
-								<div class="input-form__wrapper">
+								<div class="input-form__wrapper zip-form">
 									〒<input id="zip-code" class="form-input__text" type="text" name="zip" placeholder="例：5740006"
 										required>
+									<div class="zip-code-count-wrapper">あと<span id="zip-code-counter"></span>桁</div>
 								</div>
 							</div>
 							<div class="form-step__box">
@@ -171,7 +174,7 @@
 					</div>
 
 					<!-- Step 4 -->
-					<div class="form-step">
+					<div id="form-step-4" class="form-step">
 						<!-- <div id="step-4-err-msg__wrapper" class="step-4-err-msg__wrapper invisible">
 							<span id="step-4-err-msg" class="step-err-msg"></span>
 						</div> -->
@@ -197,7 +200,7 @@
 				<div class="action-btn-inner">
 					<button id="prev-btn" type="button" class="prev-btn">＜ 戻る</button>
 					<button id="next-btn" type="button" class="next-btn">次へ</button>
-					<button id="submit-btn" type="submit" class="submit-btn">送信</button>
+					<button id="submit-btn" type="submit" class="submit-btn"><span>利用規約に同意して</span><br>理想の求人を受け取る</button>
 				</div>
 			</div>
 		</div>
@@ -302,6 +305,34 @@
 			</div>
 			<div class="slide">
 				<img src="./img/slider_3.png" alt="" class="slide-img" />
+				<div class="slide-content">
+					<div class="slide-content__job">自動車検査員</div>
+					<div class="slide-content__money">年収600万円～</div>
+				</div>
+			</div>
+			<div class="slide">
+				<img src="./img/slider_4.png" alt="" class="slide-img" />
+				<div class="slide-content">
+					<div class="slide-content__job">自動車検査員</div>
+					<div class="slide-content__money">年収600万円～</div>
+				</div>
+			</div>
+			<div class="slide">
+				<img src="./img/slider_4.png" alt="" class="slide-img" />
+				<div class="slide-content">
+					<div class="slide-content__job">自動車検査員</div>
+					<div class="slide-content__money">年収600万円～</div>
+				</div>
+			</div>
+			<div class="slide">
+				<img src="./img/slider_4.png" alt="" class="slide-img" />
+				<div class="slide-content">
+					<div class="slide-content__job">自動車検査員</div>
+					<div class="slide-content__money">年収600万円～</div>
+				</div>
+			</div>
+			<div class="slide">
+				<img src="./img/slider_4.png" alt="" class="slide-img" />
 				<div class="slide-content">
 					<div class="slide-content__job">自動車検査員</div>
 					<div class="slide-content__money">年収600万円～</div>

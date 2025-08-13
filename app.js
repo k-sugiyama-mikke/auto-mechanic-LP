@@ -73,11 +73,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const slider = document.getElementById("slider");
       const currentPlan = document.getElementById("current-plan");
       currentPlan.value = "近いうちに転職したい";
+      const offerLabel = document.getElementById("offer-label");
 
       intensionDialog.classList.add("invisible");
       mechanicFirstView.classList.add("invisible");
       form.classList.remove("invisible");
       slider.classList.add("invisible");
+      offerLabel.classList.remove("invisible");
     });
 
   /**
@@ -92,11 +94,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const slider = document.getElementById("slider");
       const currentPlan = document.getElementById("current-plan");
       currentPlan.value = "今は情報収集したい";
+      const offerLabel = document.getElementById("offer-label");
 
       intensionDialog.classList.add("invisible");
       mechanicFirstView.classList.add("invisible");
       form.classList.remove("invisible");
       slider.classList.add("invisible");
+      offerLabel.classList.remove("invisible");
     });
 
   /**
@@ -174,10 +178,12 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("updateSteps currentPage");
     console.log(currentPage);
 
+    const nowCurrentPage = currentPage + 1;
+
     // Update progress
-    const progressPercent = Math.round((currentPage / steps.length) * 100);
+    const progressPercent = Math.round((nowCurrentPage / steps.length) * 100);
     progressBar.style.width = `${progressPercent}%`;
-    progressNumerator.textContent = currentPage + 1;
+    progressNumerator.textContent = nowCurrentPage;
 
     // formContainer.style.transform = `translateX(-${100 * currentPage}%)`;
 
@@ -190,14 +196,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const submitBtn = document.getElementById("submit-btn");
     const slider = document.getElementById("slider");
     console.log("page数");
-    console.log(currentPage + 1);
+    console.log(nowCurrentPage);
 
-    switch (currentPage + 1) {
+    switch (nowCurrentPage) {
       case 1:
         prevBtn.classList.add("invisible");
         nextBtn.classList.remove("invisible");
         submitBtn.classList.add("invisible");
-
+        checkCheckboxAndRadioForm(nowCurrentPage);
         break;
       case 2:
         prevBtn.classList.remove("invisible");
@@ -205,9 +211,8 @@ document.addEventListener("DOMContentLoaded", () => {
         submitBtn.classList.add("invisible");
         slider.classList.add("invisible");
         slider.classList.add("invisible");
+        checkCheckboxAndRadioForm(nowCurrentPage);
 
-        handReset();
-        backgroundReset();
         break;
       case 3:
         console.log("case 3");
@@ -215,18 +220,11 @@ document.addEventListener("DOMContentLoaded", () => {
         nextBtn.classList.remove("invisible");
         submitBtn.classList.add("invisible");
         slider.classList.remove("invisible");
-        slider.classList.remove("invisible");
-
-        const step3ErrMsgWrapper = document.getElementById(
-          "step-3-err-msg__wrapper"
-        );
 
         if (validateFormThirdQuestion()) {
-          step3ErrMsgWrapper.classList.add("invisible");
           addDecorationAfterInputComplete();
           nextBtnInvalidationCancel();
         } else {
-          step3ErrMsgWrapper.classList.remove("invisible");
           deleteDecorationAfterInputComplete();
           nextBtnDisabled();
         }
@@ -237,8 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
         prevBtn.classList.remove("invisible");
         nextBtn.classList.add("invisible");
         submitBtn.classList.remove("invisible");
-        slider.classList.add("invisible");
-        slider.classList.add("invisible");
+        slider.classList.remove("invisible");
 
         let validate = validateFormFourQuestion();
 
@@ -361,22 +358,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * チェックボックスを選択した際にhand-iconを次へボタンに移動する
-   */
-  document.querySelectorAll(".form-checkbox").forEach((checkbox) => {
-    checkbox.addEventListener("change", function () {
-      const targetPage = currentPage;
-      currentStep = null;
-      steps.forEach((step, index) => {
-        if (index == targetPage) {
-          currentStep = step;
-        }
-      });
-      checkGrayOutForm(currentStep);
-    });
-  });
-
-  /**
    * ラジオボタンを選択した際は次へ移動する
    */
   document.querySelectorAll(".form-radio").forEach((radio) => {
@@ -391,8 +372,11 @@ document.addEventListener("DOMContentLoaded", () => {
    */
   function backgroundReset() {
     const nextBtn = document.querySelector(".next-btn");
+    const submitBtn = document.querySelector(".submit-btn");
+
     const formScreen = document.querySelector(".form-screen");
 
+    submitBtn.classList.remove("highlight");
     formScreen.classList.remove("dimmed");
     nextBtn.classList.remove("highlight");
   }
@@ -408,33 +392,56 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   *
+   *チェックボックスとラジオボタンをチェックする
    */
-  function checkGrayOutForm(targetStep) {
+  function checkCheckboxAndRadioForm(currentPage) {
+    console.log("checkCheckboxAndRadioForm start");
+    console.log(currentPage);
+    const targetStep = document.getElementById(`form-step-${currentPage}`);
+    console.log(targetStep);
+
     //チェックボックス
     if (targetStep.querySelector(".form-checkbox")) {
       console.log("このステップにはチェックボックスがあります");
+      let nextBtn = document.querySelector(".next-btn");
+      let formScreen = document.querySelector(".form-screen");
 
       const isChecked = [...targetStep.querySelectorAll(".form-checkbox")].some(
         (cb) => cb.checked
       );
 
       if (isChecked) {
+        formScreen.classList.add("dimmed");
+        nextBtn.classList.add("highlight");
         addDecorationAfterInputComplete();
+        nextBtnInvalidationCancel();
+      } else {
+        formScreen.classList.remove("dimmed");
+        nextBtn.classList.remove("highlight");
+        handReset();
+        nextBtnDisabled();
       }
     }
 
     //ラジオボタン
     if (targetStep.querySelector(".form-radio")) {
       console.log("このステップにはラジオボタンがあります");
+      let nextBtn = document.querySelector(".next-btn");
+      let formScreen = document.querySelector(".form-screen");
 
       const isChecked = [...targetStep.querySelectorAll(".form-radio")].some(
         (cb) => cb.checked
       );
 
-      if (isChecked) {
-        addDecorationAfterInputComplete();
-      }
+      formScreen.classList.remove("dimmed");
+      nextBtn.classList.remove("highlight");
+      handReset();
+      //   if (isChecked) {
+      //     formScreen.classList.add("dimmed");
+      //     nextBtn.classList.add("highlight");
+      //     addDecorationAfterInputComplete();
+      //   } else {
+      //   }
     }
   }
 
@@ -454,9 +461,14 @@ document.addEventListener("DOMContentLoaded", () => {
       if (isChecked) {
         formScreen.classList.add("dimmed");
         nextBtn.classList.add("highlight");
+        nextBtnInvalidationCancel();
+
+        addDecorationAfterInputComplete();
       } else {
         formScreen.classList.remove("dimmed");
         nextBtn.classList.remove("highlight");
+        handReset();
+        nextBtnDisabled();
       }
     });
   });
@@ -512,20 +524,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // フォーム3問目の監視対象の要素を取得
   const zipCodeInput = document.getElementById("zip-code");
   const birthInput = document.getElementById("birth");
+  const zipCodeCouter = document.getElementById("zip-code-counter");
 
   // イベント設定
   [zipCodeInput, birthInput].forEach((input) => {
     input.addEventListener("input", () => {
-      const step3ErrMsgWrapper = document.getElementById(
-        "step-3-err-msg__wrapper"
-      );
-
       if (validateFormThirdQuestion()) {
-        step3ErrMsgWrapper.classList.add("invisible");
         addDecorationAfterInputComplete();
         nextBtnInvalidationCancel();
       } else {
-        step3ErrMsgWrapper.classList.remove("invisible");
         deleteDecorationAfterInputComplete();
         nextBtnDisabled();
       }
@@ -539,6 +546,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let result = false;
     const zipCode = zipCodeInput.value.trim();
     const birth = birthInput.value.trim();
+    const zipCodeLength = zipCode.length;
+    console.log(zipCodeLength);
+    zipCodeCouter.textContent = 7 - zipCodeLength;
 
     // 郵便番号：7桁の数字、誕生年：4桁の数字
     const zipCodeValid = /^\d{7}$/.test(zipCode);
