@@ -267,6 +267,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const loading = document.getElementById("loading");
       loading.classList.remove("invisible");
 
+      const dir = location.pathname.replace(/[^/]+$/, ""); // 今いるディレクトリ（末尾をファイル扱いでカット）
+      location.replace(dir + "complete.html");
+      return;
+
       try {
         const data = collectFormData();
         const API_ENDPOINT = "https://d3akfz01stgoxo.cloudfront.net/submit";
