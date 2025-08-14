@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("multiStepForm");
+  const RECAPTCHA_SITE_KEY = "6LeP36UrAAAAANFJgm0Ge40lQze0LzeA8Ku0yIYU";
+  const API_ENDPOINT = "http://localhost:3000/";
+
   const steps = document.querySelectorAll(".form-step");
   const progressBar = document.getElementById("progress-bar");
   const progressNumerator = document.getElementById("progress-numerator");
@@ -268,12 +270,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const data = collectFormData();
 
-      const dir = location.pathname.replace(/[^/]+$/, ""); // 今いるディレクトリ（末尾をファイル扱いでカット）
-      location.replace(dir + "complete.html");
-      return;
-
       console.log("送信するデータ：", data);
       const API_ENDPOINT = "https://d3akfz01stgoxo.cloudfront.net/submit";
+
+      // 1) reCAPTCHA トークン取得（任意の action 名をそろえる）
+      const token = await grecaptcha.execute(RECAPTCHA_SITE_KEY, {
+        action: "mechanic-contact",
+      });
+
+      data.recaptchaToken = token;
 
       try {
         const res = await fetch(API_ENDPOINT, {
@@ -286,13 +291,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const result = await res.json();
         if (res.ok) {
-          location.replace("/complete.html");
+          const dir = location.pathname.replace(/[^/]+$/, ""); // 今いるディレクトリ（末尾をファイル扱いでカット）
+          location.replace(dir + "complete.html");
         } else {
+          const dir = location.pathname.replace(/[^/]+$/, ""); // 今いるディレクトリ（末尾をファイル扱いでカット）
+          location.replace(dir + "complete.html");
           throw new Error("送信に失敗しました");
         }
         console.log("送信成功:", result);
       } catch (err) {
-        location.replace("/complete.html");
+        const dir = location.pathname.replace(/[^/]+$/, ""); // 今いるディレクトリ（末尾をファイル扱いでカット）
+        location.replace(dir + "complete.html");
       }
     });
 
