@@ -252,7 +252,9 @@ document.addEventListener("DOMContentLoaded", () => {
       default:
         break;
     }
-    window.scrollTo(0, 0);
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 400);
   }
 
   /**
