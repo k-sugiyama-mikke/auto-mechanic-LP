@@ -955,8 +955,8 @@ body {
 .footer {
   display: flex;
   flex-direction: column;
-  padding: 0.8rem 0;
-  font-size: 0.7rem;
+  padding: 0.6rem 0;
+  font-size: 0.6rem;
   background-color: #1a47ab;
   color: #fff;
 }
@@ -965,10 +965,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.4rem;
 }
 
-.footer-upper li {
+.footer-upper li:first-child {
   margin-right: 1rem;
 }
 
