@@ -875,7 +875,7 @@ body {
 }
 
 .slide {
-  min-width: 130px;
+  max-width: 130px;
   height: 110px;
   margin-right: 10px;
   background: #fff;
