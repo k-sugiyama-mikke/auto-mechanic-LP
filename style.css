@@ -1051,6 +1051,7 @@ body {
   right: 5px;
   z-index: 10;
   width: 30px;
+  height: 30px;
   pointer-events: auto;
 }
 
