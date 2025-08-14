@@ -855,6 +855,9 @@ body {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  border: 1px solid #fdf6f6;
+  box-shadow: 1px 2px 7px #e5e0e0;
+  padding-top: 0.5rem;
 }
 
 .slider-wrapper.invisible {
@@ -872,7 +875,7 @@ body {
   margin-right: 5px;
 }
 
-.slider-track {
+/* .slider-track {
   display: flex;
   width: max-content;
   animation: scroll-left 30s linear infinite;
@@ -886,7 +889,7 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.08); /* モダンな柔らかい影 */
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.08); 
 }
 .slide img {
   height: 60px;
@@ -905,7 +908,7 @@ body {
 .slide-img {
   width: 100%;
   height: auto;
-}
+} */
 
 .slide-content {
   display: flex;
@@ -924,6 +927,39 @@ body {
 .slide-content__money {
   font-size: 0.7rem;
   color: rgb(255, 0, 0);
+}
+
+.slider-track {
+  display: flex;
+  gap: 10px; /* marginの代わりにgap推奨（幅計算が安定） */
+  width: max-content;
+  animation: scroll-left 50s linear infinite; /* 好きな秒数に */
+  will-change: transform;
+}
+
+.slide {
+  flex: 0 0 auto; /* 縮まないよう固定（重要） */
+  width: 130px; /* max-width ではなく固定幅に */
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.08);
+}
+
+.slide-img {
+  width: 100%;
+  height: 60px;
+  object-fit: cover;
+}
+
+@keyframes scroll-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  } /* 前半＝後半なのでピタッと繋がる */
 }
 
 /***************************

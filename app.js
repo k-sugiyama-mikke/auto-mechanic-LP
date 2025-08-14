@@ -748,4 +748,44 @@ document.addEventListener("DOMContentLoaded", () => {
       inline: "nearest",
     });
   }
+
+  const track = document.querySelector(".slider-track");
+  const wrapper = document.querySelector(".slider-wrapper");
+  if (!track || !wrapper) return;
+
+  // 元のスライドを保存
+  const original = Array.from(track.children).map((n) => n.cloneNode(true));
+
+  function setupSeamless() {
+    // 一旦リセット
+    track.innerHTML = "";
+    // まず「半分(=繰り返し単位)」を作る：最低でもラッパー幅を満たすまで複製
+    original.forEach((n) => track.appendChild(n.cloneNode(true)));
+    let halfCount = track.children.length;
+    while (track.scrollWidth < wrapper.clientWidth) {
+      original.forEach((n) => track.appendChild(n.cloneNode(true)));
+      halfCount = track.children.length;
+    }
+
+    // 今の先頭〜halfCount が「前半」。これをそのまま複製して「後半」にする
+    for (let i = 0; i < halfCount; i++) {
+      const clone = track.children[i].cloneNode(true);
+      clone.setAttribute("aria-hidden", "true"); // アクセシビリティ配慮
+      track.appendChild(clone);
+    }
+
+    // 距離（=トラック幅の半分）から速度に応じて時間を算出（px/s）
+    const distance = track.scrollWidth / 2;
+    const speedPxPerSec = 80; // 速度は好みで。数値↑で速く
+    const durationSec = distance / speedPxPerSec;
+    track.style.setProperty("--marquee-duration", `${durationSec}s`);
+  }
+
+  // 初期化＆リサイズ対応（連打抑制）
+  setupSeamless();
+  let t;
+  window.addEventListener("resize", () => {
+    clearTimeout(t);
+    t = setTimeout(setupSeamless, 200);
+  });
 });
