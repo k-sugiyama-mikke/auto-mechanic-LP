@@ -532,6 +532,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (validateFormThirdQuestion()) {
         addDecorationAfterInputComplete();
         nextBtnInvalidationCancel();
+        document.getElementById("next-btn").scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "nearest",
+        });
       } else {
         deleteDecorationAfterInputComplete();
         nextBtnDisabled();
