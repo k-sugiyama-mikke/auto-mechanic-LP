@@ -721,6 +721,10 @@ body {
   margin-bottom: 5px;
 }
 
+.form-checkbox-img__1 {
+  width: 70px !important;
+}
+
 .form-checkbox-text {
   font-size: 0.8rem;
 }
