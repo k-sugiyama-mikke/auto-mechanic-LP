@@ -268,17 +268,24 @@ document.addEventListener("DOMContentLoaded", () => {
       const loading = document.getElementById("loading");
       loading.classList.remove("invisible");
 
-      const data = collectFormData();
-      const API_ENDPOINT = "https://d3akfz01stgoxo.cloudfront.net/submit";
-
-      // 1) reCAPTCHA トークン取得（任意の action 名をそろえる）
-      const token = await grecaptcha.execute(RECAPTCHA_SITE_KEY, {
-        action: "mechanic-contact",
-      });
-
-      data.recaptchaToken = token;
-
       try {
+        const data = collectFormData();
+        const API_ENDPOINT = "https://d3akfz01stgoxo.cloudfront.net/submit";
+
+        if (!window.grecaptcha) {
+          throw new Error("reCAPTCHAが読み込まれていません");
+        }
+
+        // APIの準備完了を待つ
+        await new Promise((done) => grecaptcha.ready(done));
+
+        // トークン取得
+        const token = await grecaptcha.execute(RECAPTCHA_SITE_KEY, {
+          action: "mechanic_contact",
+        });
+
+        data.recaptchaToken = token;
+
         const res = await fetch(API_ENDPOINT, {
           method: "POST",
           headers: {
@@ -298,6 +305,10 @@ document.addEventListener("DOMContentLoaded", () => {
         alert(
           "大変申し訳ございません。送信に失敗しました。再度お試しください。"
         );
+        submitBtn.disabled = false;
+      } finally {
+        // ローディングは必ず閉じる
+        loading.classList.add("invisible");
       }
     });
 
