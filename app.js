@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
   const RECAPTCHA_SITE_KEY = "6LeP36UrAAAAANFJgm0Ge40lQze0LzeA8Ku0yIYU";
-  const API_ENDPOINT = "http://localhost:3000/";
 
   const steps = document.querySelectorAll(".form-step");
   const progressBar = document.getElementById("progress-bar");
