@@ -269,8 +269,6 @@ document.addEventListener("DOMContentLoaded", () => {
       loading.classList.remove("invisible");
 
       const data = collectFormData();
-
-      console.log("送信するデータ：", data);
       const API_ENDPOINT = "https://d3akfz01stgoxo.cloudfront.net/submit";
 
       // 1) reCAPTCHA トークン取得（任意の action 名をそろえる）
@@ -289,19 +287,17 @@ document.addEventListener("DOMContentLoaded", () => {
           body: JSON.stringify(data),
         });
 
-        const result = await res.json();
+        // const result = await res.json();
         if (res.ok) {
           const dir = location.pathname.replace(/[^/]+$/, ""); // 今いるディレクトリ（末尾をファイル扱いでカット）
           location.replace(dir + "complete.html");
         } else {
-          const dir = location.pathname.replace(/[^/]+$/, ""); // 今いるディレクトリ（末尾をファイル扱いでカット）
-          location.replace(dir + "complete.html");
           throw new Error("送信に失敗しました");
         }
-        console.log("送信成功:", result);
       } catch (err) {
-        const dir = location.pathname.replace(/[^/]+$/, ""); // 今いるディレクトリ（末尾をファイル扱いでカット）
-        location.replace(dir + "complete.html");
+        alert(
+          "大変申し訳ございません。送信に失敗しました。再度お試しください。"
+        );
       }
     });
 
