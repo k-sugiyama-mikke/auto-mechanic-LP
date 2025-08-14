@@ -415,6 +415,7 @@ document.addEventListener("DOMContentLoaded", () => {
         nextBtn.classList.add("highlight");
         addDecorationAfterInputComplete();
         nextBtnInvalidationCancel();
+        targetBtnScroll("next-btn");
       } else {
         formScreen.classList.remove("dimmed");
         nextBtn.classList.remove("highlight");
@@ -532,11 +533,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (validateFormThirdQuestion()) {
         addDecorationAfterInputComplete();
         nextBtnInvalidationCancel();
-        document.getElementById("next-btn").scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-          inline: "nearest",
-        });
+        targetBtnScroll("next-btn");
       } else {
         deleteDecorationAfterInputComplete();
         nextBtnDisabled();
@@ -583,6 +580,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (validate.result) {
         addDecorationAfterInputComplete(isLastPage);
         submitBtnInvalidationCancel();
+        targetBtnScroll("submit-btn");
       } else {
         deleteDecorationAfterInputComplete();
         submitBtnDisabled();
@@ -734,4 +732,20 @@ document.addEventListener("DOMContentLoaded", () => {
     freeMode: true, // 自由モード（常に流れる）
     freeModeMomentum: false, // 慣性無効（一定速度で流す）
   });
+
+  /**
+   * ターゲットのボタンまでスクロールする
+   * @param {} target
+   * @returns
+   */
+  function targetBtnScroll(target) {
+    if (!target) {
+      return;
+    }
+    document.getElementById(target).scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "nearest",
+    });
+  }
 });

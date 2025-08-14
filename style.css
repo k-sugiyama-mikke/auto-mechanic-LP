@@ -921,7 +921,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 0.8rem 0;
-  font-size: 0.5rem;
+  font-size: 0.7rem;
   background-color: #1a47ab;
   color: #fff;
 }
@@ -930,11 +930,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .footer-upper li {
-  margin-right: 0.5rem;
+  margin-right: 1rem;
 }
 
 .footer-bottom {
@@ -1030,6 +1030,31 @@ body {
 
 .company-dialog.invisible {
   display: none;
+}
+
+.company-profile {
+  width: 100%;
+  border-collapse: collapse;
+  line-height: 1.7;
+}
+.company-profile caption {
+  text-align: left;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin: 0 0 0.6rem;
+}
+.company-profile th,
+.company-profile td {
+  border: 1px solid #e5e5e5;
+  padding: 0.8rem 1rem;
+  vertical-align: top;
+}
+.company-profile th {
+  width: 28%;
+  background: #fafafa;
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 /***************************
