@@ -1,5 +1,21 @@
 body {
   font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+/* 600px以上 */
+@media (min-width: 600px) {
+  body {
+    /* justify-content: center; */
+    align-items: center;
+  }
+
+  .body-inner {
+    width: 600px;
+    /* border: 1px solid #f5f5f5; */
+    box-shadow: 0 0 20px 10px rgba(198, 198, 198, 0.2);
+  }
 }
 
 /***************************
@@ -286,7 +302,7 @@ CTA
   position: absolute;
   content: "";
   right: 10px;
-  background-image: url(./img/arrow-right-circle-1.png);
+  background-image: url(./img/arrow-white.png);
   width: 25px;
   height: 25px;
   background-size: contain; /* 画像を収める */
@@ -351,7 +367,7 @@ CTA
   position: absolute;
   content: "";
   right: 10px;
-  background-image: url(./img/arrow-right-circle-2.png);
+  background-image: url(./img/arrow-blue.png);
   width: 25px;
   height: 25px;
   background-size: contain; /* 画像を収める */
@@ -659,7 +675,7 @@ CTA
   background-color: #fff;
   color: #143378;
   padding: 0.6rem 2rem;
-  border-radius: 20px;
+  border-radius: 10px;
   text-align: center;
   font-size: 0.9rem;
   font-weight: bold;
