@@ -304,7 +304,7 @@ CTA
   position: absolute;
   content: "";
   right: 10px;
-  background-image: url(./img/arrow-white.png);
+  background-image: url(./img/arrow-white.webp);
   width: 25px;
   height: 25px;
   background-size: contain; /* 画像を収める */
@@ -420,7 +420,7 @@ CTA
   position: absolute;
   content: "";
   right: 10px;
-  background-image: url(./img/arrow-blue.png);
+  background-image: url(./img/arrow-blue.webp);
   width: 25px;
   height: 25px;
   background-size: contain; /* 画像を収める */

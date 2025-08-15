@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const RECAPTCHA_SITE_KEY = "6LeP36UrAAAAANFJgm0Ge40lQze0LzeA8Ku0yIYU";
+  const RECAPTCHA_SITE_KEY = "6Lffw6YrAAAAAL1pqT366UTTqSGDRvOzcv8glFRf";
 
   const steps = document.querySelectorAll(".form-step");
   const progressBar = document.getElementById("progress-bar");
@@ -266,10 +266,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const loading = document.getElementById("loading");
       loading.classList.remove("invisible");
-
-      const dir = location.pathname.replace(/[^/]+$/, ""); // 今いるディレクトリ（末尾をファイル扱いでカット）
-      location.replace(dir + "complete.html");
-      return;
 
       try {
         const data = collectFormData();
