@@ -11,6 +11,15 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css" />
 
 	<link rel="stylesheet" href="./complete.css" />
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16680263633"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'AW-16680263633');
+	</script>
 </head>
 
 <body>
@@ -184,7 +193,35 @@
 		<script id="timerex_embed" src="https://asset.timerex.net/js/embed.js"></script>
 
 		<script type="text/javascript">
-			TimerexCalendar();
+			const paramsList = new URLSearchParams(window.location.search);
+			const paramName = paramsList.get("name");
+			const paramTel = paramsList.get("tel");
+
+			TimerexCalendar({
+				'guest_name': paramName,
+				'66ed1fba69074_2': paramTel,
+				'onBookingComplete': async function () {
+					// const displayTargets = document.querySelectorAll('.display-target');
+					// displayTargets.forEach(function (target) {
+					// 	target.style.display = 'none';
+					// });
+
+					// const hashedEmail_i = await sha256Hash(email_i || '');
+					// const hashedTell_i = await sha256Hash(formatToE164(tel_i) || '');
+
+					// 拡張コンバージョンのユーザーデータ送信
+					// gtag('set', 'user_data', {
+					// 	'email': hashedEmail_i,
+					// 	'phone_number': hashedTell_i
+					// });
+
+					gtag('event', 'conversion', {
+						'send_to': 'AW-16680263633/q9nUCNfjivMaENG_4pE-',
+						'value': 3000.0,
+						'currency': 'JPY'
+					});
+				}
+			});
 		</script>
 		<!-- End TimeRex Widget -->
 

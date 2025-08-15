@@ -6,6 +6,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const progressNumerator = document.getElementById("progress-numerator");
   const progressDenominator = document.getElementById("progress-denominator");
   let currentPage = 0;
+  //1枚目
+  let isTransitedFirstPage = false;
+  //2枚目
+  let isTransitedSecondPage = false;
+  //3枚目
+  let isTransitedThreePage = false;
+  //4枚目
+  let isTransitedFourPage = false;
+  //5枚目
+  let isTransitedFivePage = false;
+  //6枚目
+  let isTransitedSixPage = false;
+  //最終ページ
+  let isTransitedLastPage = false;
 
   progressDenominator.textContent = steps.length;
   init();
@@ -205,6 +219,11 @@ document.addEventListener("DOMContentLoaded", () => {
         nextBtn.classList.remove("invisible");
         submitBtn.classList.add("invisible");
         checkCheckboxAndRadioForm(nowCurrentPage);
+
+        if (!isTransitedFirstPage) {
+          isTransitedFirstPage = true;
+          fireGoogleConversionFirst();
+        }
         break;
       case 2:
         prevBtn.classList.remove("invisible");
@@ -214,6 +233,10 @@ document.addEventListener("DOMContentLoaded", () => {
         slider.classList.add("invisible");
         checkCheckboxAndRadioForm(nowCurrentPage);
 
+        if (!isTransitedSecondPage) {
+          isTransitedSecondPage = true;
+          fireGoogleConversionSecond();
+        }
         break;
       case 3:
         console.log("case 3");
@@ -230,6 +253,11 @@ document.addEventListener("DOMContentLoaded", () => {
           nextBtnDisabled();
         }
 
+        if (!isTransitedThreePage) {
+          isTransitedThreePage = true;
+          fireGoogleConversionThird();
+        }
+
         break;
       case 4:
         console.log("case 4");
@@ -244,6 +272,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (validate.result) {
           addDecorationAfterInputComplete(isLastPage);
           submitBtnInvalidationCancel();
+
+          if (!isTransitedFourPage) {
+            isTransitedFourPage = true;
+            fireGoogleConversionFour();
+          }
         } else {
           deleteDecorationAfterInputComplete();
           submitBtnDisabled();
@@ -296,7 +329,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // const result = await res.json();
         if (res.ok) {
           const dir = location.pathname.replace(/[^/]+$/, ""); // 今いるディレクトリ（末尾をファイル扱いでカット）
-          location.replace(dir + "complete.html");
+          location.replace(
+            dir + `complete.html?name=${data.name}&tel=${data.tel}&complete=1`
+          );
         } else {
           throw new Error("送信に失敗しました");
         }
@@ -305,7 +340,6 @@ document.addEventListener("DOMContentLoaded", () => {
           "大変申し訳ございません。送信に失敗しました。再度お試しください。"
         );
         submitBtn.disabled = false;
-      } finally {
         // ローディングは必ず閉じる
         loading.classList.add("invisible");
       }
@@ -488,32 +522,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-
-  /**
-   * ページ内のフォーム（テキスト）をチェックする
-   */
-  function checkInputFormWithInPage() {
-    const targetPage = currentPage;
-    let currentStep = null;
-    steps.forEach((step, index) => {
-      if (index == targetPage) {
-        currentStep = step;
-      }
-    });
-
-    const inputs = currentStep.querySelectorAll(".form-input__text");
-    console.log(inputs);
-
-    let isInput = true;
-    inputs.forEach((input) => {
-      console.log("入力された値:", input.value);
-      if (!input.value) {
-        isInput = false;
-      }
-    });
-
-    return isInput;
-  }
 
   /***********************************************
    * フォーム1問目のバリデーションチェック
@@ -803,4 +811,90 @@ document.addEventListener("DOMContentLoaded", () => {
     clearTimeout(t);
     t = setTimeout(setupSeamless, 200);
   });
+
+  /**
+   * googleコンバージョン１を発火する
+   */
+  function fireGoogleConversionFirst() {
+    if (!isTransitedFirstPage) {
+      return;
+    }
+
+    gtag("event", "conversion", {
+      send_to: "AW-16680263633/SepCCMHWivMaENG_4pE-",
+      value: 0.0,
+      currency: "JPY",
+    });
+  }
+
+  /**
+   * googleコンバージョン2を発火する
+   */
+  function fireGoogleConversionSecond() {
+    if (!isTransitedSecondPage) {
+      return;
+    }
+
+    gtag("event", "conversion", {
+      send_to: "AW-16680263633/5w4bCMTWivMaENG_4pE-",
+      value: 0.0,
+      currency: "JPY",
+    });
+  }
+  /**
+   * googleコンバージョン3を発火する
+   */
+  function fireGoogleConversionThird() {
+    if (!isTransitedThreePage) {
+      return;
+    }
+
+    gtag("event", "conversion", {
+      send_to: "AW-16680263633/RYpTCMfWivMaENG_4pE-",
+      value: 0.0,
+      currency: "JPY",
+    });
+  }
+  /**
+   * googleコンバージョン4を発火する
+   */
+  function fireGoogleConversionFour() {
+    if (!isTransitedFourPage) {
+      return;
+    }
+
+    gtag("event", "conversion", {
+      send_to: "AW-16680263633/Ud3mCMrWivMaENG_4pE-",
+      value: 0.0,
+      currency: "JPY",
+    });
+  }
+  /**
+   * googleコンバージョン5を発火する
+   */
+  function fireGoogleConversionFive() {
+    if (!isTransitedFivePage) {
+      return;
+    }
+
+    gtag("event", "conversion", {
+      send_to: "AW-16680263633/hyI9CM3WivMaENG_4pE-",
+      value: 0.0,
+      currency: "JPY",
+    });
+  }
+  /**
+   * google最終コンバージョンを発火する
+   */
+  function fireGoogleConversionLast() {
+    if (!isTransitedLastPage) {
+      return;
+    }
+
+    gtag("event", "conversion", {
+      send_to: "",
+      value: 0.0,
+      currency: "JPY",
+    });
+  }
 });

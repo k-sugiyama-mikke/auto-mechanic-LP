@@ -490,7 +490,9 @@ body {
 }
 
 .form-step-3__coution {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
+  color: #ff0000;
+  font-weight: bold;
 }
 
 .step-err-msg {

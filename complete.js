@@ -1,4 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+
+  if (params.has("complete")) {
+    console.log("最終CV発火");
+    gtag("event", "conversion", {
+      send_to: "AW-16680263633/rtgFCL7WivMaENG_4pE-",
+      value: 1000.0,
+      currency: "JPY",
+    });
+  }
+
   /**
    * 利用規約モーダルを閉じる（×ボタン）
    */
