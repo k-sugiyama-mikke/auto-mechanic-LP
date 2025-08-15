@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (params.has("complete") && !isTestJs) {
     console.log("最終CV発火");
     gtag("event", "conversion", {
-      send_to: "AW-16680263633/rtgFCL7WivMaENG_4pE-",
+      send_to: "AW-16680263633/U7UBCN_B-IYbENG_4pE-",
       value: 1000.0,
       currency: "JPY",
     });

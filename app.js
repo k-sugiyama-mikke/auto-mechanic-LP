@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const progressNumerator = document.getElementById("progress-numerator");
   const progressDenominator = document.getElementById("progress-denominator");
   let currentPage = 0;
+  //0枚目
+  let isTransitedZeroPage = false;
   //1枚目
   let isTransitedFirstPage = false;
   //2枚目
@@ -18,8 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let isTransitedFivePage = false;
   //6枚目
   let isTransitedSixPage = false;
-  //最終ページ
-  let isTransitedLastPage = false;
   //テスト有無
   let isTest = new URLSearchParams(window.location.search).get("test")
     ? true
@@ -99,6 +99,9 @@ document.addEventListener("DOMContentLoaded", () => {
       form.classList.remove("invisible");
       slider.classList.add("invisible");
       offerLabel.classList.remove("invisible");
+      if (!isTransitedZeroPage) {
+        fireGoogleConversionZero();
+      }
     });
 
   /**
@@ -120,6 +123,9 @@ document.addEventListener("DOMContentLoaded", () => {
       form.classList.remove("invisible");
       slider.classList.add("invisible");
       offerLabel.classList.remove("invisible");
+      if (!isTransitedZeroPage) {
+        fireGoogleConversionZero();
+      }
     });
 
   /**
@@ -225,9 +231,9 @@ document.addEventListener("DOMContentLoaded", () => {
         checkCheckboxAndRadioForm(nowCurrentPage);
 
         if (!isTransitedFirstPage) {
-          isTransitedFirstPage = true;
           fireGoogleConversionFirst();
         }
+
         break;
       case 2:
         prevBtn.classList.remove("invisible");
@@ -238,9 +244,9 @@ document.addEventListener("DOMContentLoaded", () => {
         checkCheckboxAndRadioForm(nowCurrentPage);
 
         if (!isTransitedSecondPage) {
-          isTransitedSecondPage = true;
           fireGoogleConversionSecond();
         }
+
         break;
       case 3:
         console.log("case 3");
@@ -258,7 +264,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (!isTransitedThreePage) {
-          isTransitedThreePage = true;
           fireGoogleConversionThird();
         }
 
@@ -278,7 +283,6 @@ document.addEventListener("DOMContentLoaded", () => {
           submitBtnInvalidationCancel();
 
           if (!isTransitedFourPage) {
-            isTransitedFourPage = true;
             fireGoogleConversionFour();
           }
         } else {
@@ -817,67 +821,95 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /**
-   * googleコンバージョン１を発火する
+   * googleコンバージョン0を発火する
    */
-  function fireGoogleConversionFirst() {
-    if (!isTransitedFirstPage || isTest) {
+  function fireGoogleConversionZero() {
+    if (isTransitedZeroPage || isTest) {
       return;
     }
 
     gtag("event", "conversion", {
-      send_to: "AW-16680263633/SepCCMHWivMaENG_4pE-",
+      send_to: "AW-16680263633/BeUaCNbB-IYbENG_4pE-",
       value: 0.0,
       currency: "JPY",
     });
+
+    isTransitedZeroPage = true;
+  }
+
+  /**
+   * googleコンバージョン１を発火する
+   */
+  function fireGoogleConversionFirst() {
+    if (isTransitedFirstPage || isTest) {
+      return;
+    }
+
+    gtag("event", "conversion", {
+      send_to: "AW-16680263633/7wPwCOyP64YbENG_4pE-",
+      value: 0.0,
+      currency: "JPY",
+    });
+
+    isTransitedFirstPage = true;
   }
 
   /**
    * googleコンバージョン2を発火する
    */
   function fireGoogleConversionSecond() {
-    if (!isTransitedSecondPage || isTest) {
+    if (isTransitedSecondPage || isTest) {
       return;
     }
 
     gtag("event", "conversion", {
-      send_to: "AW-16680263633/5w4bCMTWivMaENG_4pE-",
+      send_to: "AW-16680263633/0w__CNPB-IYbENG_4pE-",
       value: 0.0,
       currency: "JPY",
     });
+
+    isTransitedSecondPage = true;
   }
+
   /**
    * googleコンバージョン3を発火する
    */
   function fireGoogleConversionThird() {
-    if (!isTransitedThreePage || isTest) {
+    if (isTransitedThreePage || isTest) {
       return;
     }
 
     gtag("event", "conversion", {
-      send_to: "AW-16680263633/RYpTCMfWivMaENG_4pE-",
+      send_to: "AW-16680263633/tZL5CNnB-IYbENG_4pE-",
       value: 0.0,
       currency: "JPY",
     });
+
+    isTransitedThreePage = true;
   }
+
   /**
    * googleコンバージョン4を発火する
    */
   function fireGoogleConversionFour() {
-    if (!isTransitedFourPage || isTest) {
+    if (isTransitedFourPage || isTest) {
       return;
     }
 
     gtag("event", "conversion", {
-      send_to: "AW-16680263633/Ud3mCMrWivMaENG_4pE-",
+      send_to: "AW-16680263633/wI2eCNzB-IYbENG_4pE-",
       value: 0.0,
       currency: "JPY",
     });
+
+    isTransitedFourPage = true;
   }
+
   /**
    * googleコンバージョン5を発火する
    */
   function fireGoogleConversionFive() {
-    if (!isTransitedFivePage || isTest) {
+    if (isTransitedFivePage || isTest) {
       return;
     }
 
@@ -886,19 +918,7 @@ document.addEventListener("DOMContentLoaded", () => {
       value: 0.0,
       currency: "JPY",
     });
-  }
-  /**
-   * google最終コンバージョンを発火する
-   */
-  function fireGoogleConversionLast() {
-    if (!isTransitedLastPage || isTest) {
-      return;
-    }
 
-    gtag("event", "conversion", {
-      send_to: "",
-      value: 0.0,
-      currency: "JPY",
-    });
+    isTransitedFivePage = true;
   }
 });
