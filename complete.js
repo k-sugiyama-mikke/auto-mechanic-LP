@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
-  const isTestJs = paramsList.get("test") ? true : false;
+  const isTestJs = params.get("test") ? true : false;
+  console.log("test");
+  console.log(params.has("complete"));
+  console.log(isTestJs);
 
   if (params.has("complete") && !isTestJs) {
     console.log("最終CV発火");
@@ -8,6 +11,15 @@ document.addEventListener("DOMContentLoaded", () => {
       send_to: "AW-16680263633/U7UBCN_B-IYbENG_4pE-",
       value: 1000.0,
       currency: "JPY",
+    });
+
+    const utmJs = (params.get("utm_source") || "").toLowerCase();
+    const isMetaJs =
+      params.has("fbclid") || /facebook|instagram|meta/.test(utmJs);
+
+    fbq("trackCustom", "auto_mechanic_register", {
+      source: isMetaJs ? "meta" : "other",
+      page: location.pathname,
     });
   }
 

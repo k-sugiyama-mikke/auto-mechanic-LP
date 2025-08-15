@@ -334,10 +334,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // const result = await res.json();
         if (res.ok) {
-          const dir = location.pathname.replace(/[^/]+$/, ""); // 今いるディレクトリ（末尾をファイル扱いでカット）
-          location.replace(
-            dir + `complete.html?name=${data.name}&tel=${data.tel}&complete=1`
-          );
+          const dir = location.pathname.replace(/[^/]+$/, "");
+          const merged = new URLSearchParams(location.search); // いまのクエリを取得
+          merged.set("complete", "1"); // 追加したいものだけ足す
+
+          const thankyou = new URL(`${dir}complete.html`, location.href);
+          thankyou.search = merged.toString();
+          location.replace(thankyou.href);
         } else {
           throw new Error("送信に失敗しました");
         }
@@ -381,13 +384,14 @@ document.addEventListener("DOMContentLoaded", () => {
     //広告媒体を取得する
     const utmSource = params.get("utm_source");
     switch (utmSource) {
-      case ("facebook", "instagram"):
+      case "facebook":
+      case "instagram":
         formData.adMedia = "meta";
         formData.metaPlatform = utmSource;
         formData.metaAdId = "meta";
 
         break;
-      case "google":
+      case "g":
         formData.adMedia = "google";
         formData.utmSource = utmSource;
         formData.utmMedium = params.get("utm_medium") || "";
