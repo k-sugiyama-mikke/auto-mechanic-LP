@@ -230,10 +230,6 @@ document.addEventListener("DOMContentLoaded", () => {
         submitBtn.classList.add("invisible");
         checkCheckboxAndRadioForm(nowCurrentPage);
 
-        if (!isTransitedFirstPage) {
-          fireGoogleConversionFirst();
-        }
-
         break;
       case 2:
         prevBtn.classList.remove("invisible");
@@ -243,8 +239,9 @@ document.addEventListener("DOMContentLoaded", () => {
         slider.classList.add("invisible");
         checkCheckboxAndRadioForm(nowCurrentPage);
 
-        if (!isTransitedSecondPage) {
-          fireGoogleConversionSecond();
+        //コンバージョンタグ1を発火（1枚目の次へボタンを押した）
+        if (!isTransitedFirstPage) {
+          fireGoogleConversionFirst();
         }
 
         break;
@@ -263,8 +260,9 @@ document.addEventListener("DOMContentLoaded", () => {
           nextBtnDisabled();
         }
 
-        if (!isTransitedThreePage) {
-          fireGoogleConversionThird();
+        //コンバージョンタグ2を発火
+        if (!isTransitedSecondPage) {
+          fireGoogleConversionSecond();
         }
 
         break;
@@ -276,15 +274,15 @@ document.addEventListener("DOMContentLoaded", () => {
         slider.classList.remove("invisible");
 
         let validate = validateFormFourQuestion();
+        //コンバージョンタグ3を発火
+        if (!isTransitedThreePage) {
+          fireGoogleConversionThird();
+        }
 
         const isLastPage = true;
         if (validate.result) {
           addDecorationAfterInputComplete(isLastPage);
           submitBtnInvalidationCancel();
-
-          if (!isTransitedFourPage) {
-            fireGoogleConversionFour();
-          }
         } else {
           deleteDecorationAfterInputComplete();
           submitBtnDisabled();
@@ -819,6 +817,10 @@ document.addEventListener("DOMContentLoaded", () => {
     clearTimeout(t);
     t = setTimeout(setupSeamless, 200);
   });
+
+  /****************************
+   * コンバージョンタグ
+   ***************************/
 
   /**
    * googleコンバージョン0を発火する
