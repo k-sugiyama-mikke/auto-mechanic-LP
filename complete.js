@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
+  const isTestJs = paramsList.get("test") ? true : false;
 
-  if (params.has("complete")) {
+  if (params.has("complete") && !isTestJs) {
     console.log("最終CV発火");
     gtag("event", "conversion", {
       send_to: "AW-16680263633/rtgFCL7WivMaENG_4pE-",

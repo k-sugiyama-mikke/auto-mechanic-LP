@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let isTransitedSixPage = false;
   //最終ページ
   let isTransitedLastPage = false;
+  //テスト有無
+  let isTest = new URLSearchParams(window.location.search).get("test")
+    ? true
+    : false;
 
   progressDenominator.textContent = steps.length;
   init();
@@ -816,7 +820,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * googleコンバージョン１を発火する
    */
   function fireGoogleConversionFirst() {
-    if (!isTransitedFirstPage) {
+    if (!isTransitedFirstPage || isTest) {
       return;
     }
 
@@ -831,7 +835,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * googleコンバージョン2を発火する
    */
   function fireGoogleConversionSecond() {
-    if (!isTransitedSecondPage) {
+    if (!isTransitedSecondPage || isTest) {
       return;
     }
 
@@ -845,7 +849,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * googleコンバージョン3を発火する
    */
   function fireGoogleConversionThird() {
-    if (!isTransitedThreePage) {
+    if (!isTransitedThreePage || isTest) {
       return;
     }
 
@@ -859,7 +863,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * googleコンバージョン4を発火する
    */
   function fireGoogleConversionFour() {
-    if (!isTransitedFourPage) {
+    if (!isTransitedFourPage || isTest) {
       return;
     }
 
@@ -873,7 +877,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * googleコンバージョン5を発火する
    */
   function fireGoogleConversionFive() {
-    if (!isTransitedFivePage) {
+    if (!isTransitedFivePage || isTest) {
       return;
     }
 
@@ -887,7 +891,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * google最終コンバージョンを発火する
    */
   function fireGoogleConversionLast() {
-    if (!isTransitedLastPage) {
+    if (!isTransitedLastPage || isTest) {
       return;
     }
 

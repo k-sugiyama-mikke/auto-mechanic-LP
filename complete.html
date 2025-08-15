@@ -193,9 +193,10 @@
 		<script id="timerex_embed" src="https://asset.timerex.net/js/embed.js"></script>
 
 		<script type="text/javascript">
-			const paramsList = new URLSearchParams(window.location.search);
-			const paramName = paramsList.get("name");
-			const paramTel = paramsList.get("tel");
+			const paramsHtml = new URLSearchParams(window.location.search);
+			const paramName = paramsHtml.get("name");
+			const paramTel = paramsHtml.get("tel");
+			const isTestHtml = paramsHtml.get("test") ? true : false;
 
 			TimerexCalendar({
 				'guest_name': paramName,
@@ -215,11 +216,13 @@
 					// 	'phone_number': hashedTell_i
 					// });
 
-					gtag('event', 'conversion', {
-						'send_to': 'AW-16680263633/q9nUCNfjivMaENG_4pE-',
-						'value': 3000.0,
-						'currency': 'JPY'
-					});
+					if (!isTestHtml) {
+						gtag('event', 'conversion', {
+							'send_to': 'AW-16680263633/q9nUCNfjivMaENG_4pE-',
+							'value': 3000.0,
+							'currency': 'JPY'
+						});
+					}
 				}
 			});
 		</script>
