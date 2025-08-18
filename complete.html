@@ -233,15 +233,17 @@
 					// 	'phone_number': hashedTell_i
 					// });
 
-					if (!isTestHtml) {
+					const utmHtml = (paramsHtml.get('utm_source') || '').toLowerCase();
+					const isMetaHtml = paramsHtml.has('fbclid') || /facebook|instagram|meta/.test(utmHtml);
+					const isGoogleAdsHtml =
+						paramsHtml.has('gclid') || /google/.test(utmHtml);
+
+					if (!isTestHtml && isGoogleAdsHtml) {
 						gtag('event', 'conversion', {
 							'send_to': 'AW-16680263633/JYZCCOLB-IYbENG_4pE-',
 							'value': 3000.0,
 							'currency': 'JPY'
 						});
-
-						const utmHtml = (paramsHtml.get('utm_source') || '').toLowerCase();
-						const isMetaHtml = paramsHtml.has('fbclid') || /facebook|instagram|meta/.test(utmHtml);
 
 						fbq('trackCustom', 'auto_mechanic_mendan', {
 							source: isMetaHtml ? 'meta' : 'other',

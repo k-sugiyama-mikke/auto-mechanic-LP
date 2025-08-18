@@ -1,21 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const params = new URLSearchParams(window.location.search);
-  const isTestJs = params.get("test") ? true : false;
-  console.log("test");
-  console.log(params.has("complete"));
-  console.log(isTestJs);
+  const paramsJs = new URLSearchParams(window.location.search);
+  const isTestJs = paramsJs.get("test") ? true : false;
 
-  if (params.has("complete") && !isTestJs) {
+  const utmJs = (paramsJs.get("utm_source") || "").toLowerCase();
+  const isMetaJs =
+    params.has("fbclid") || /facebook|instagram|meta/.test(utmJs);
+  const isGoogleAdsJs = paramsJs.has("gclid") || /google/.test(utmJs);
+
+  if (paramsJs.has("complete") && !isTestJs) {
     console.log("最終CV発火");
-    gtag("event", "conversion", {
-      send_to: "AW-16680263633/U7UBCN_B-IYbENG_4pE-",
-      value: 1000.0,
-      currency: "JPY",
-    });
 
-    const utmJs = (params.get("utm_source") || "").toLowerCase();
-    const isMetaJs =
-      params.has("fbclid") || /facebook|instagram|meta/.test(utmJs);
+    if (isGoogleAdsJs) {
+      gtag("event", "conversion", {
+        send_to: "AW-16680263633/U7UBCN_B-IYbENG_4pE-",
+        value: 1000.0,
+        currency: "JPY",
+      });
+    }
 
     fbq("trackCustom", "auto_mechanic_register", {
       source: isMetaJs ? "meta" : "other",
