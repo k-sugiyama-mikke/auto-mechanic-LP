@@ -382,16 +382,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     //広告媒体を取得する
-    const utmSource = params.get("utm_source");
+    const utmSource = params.get("utm_source") || "";
     switch (utmSource) {
       case "facebook":
       case "instagram":
+      case "audience_network":
         formData.adMedia = "meta";
         formData.metaPlatform = utmSource;
-        formData.metaAdId = "meta";
+        formData.metaAdId = params.get("utm_ad_id") || "";
+        formData.metaCampainId = params.get("utm_campain_id") || "";
+        formData.metaCampainName = params.get("utm_campaign") || "";
 
         break;
-      case "g":
+      case "google":
         formData.adMedia = "google";
         formData.utmSource = utmSource;
         formData.utmMedium = params.get("utm_medium") || "";
