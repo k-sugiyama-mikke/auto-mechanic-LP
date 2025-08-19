@@ -384,9 +384,9 @@ document.addEventListener("DOMContentLoaded", () => {
     //広告媒体を取得する
     const utmSource = params.get("utm_source") || "";
     switch (utmSource) {
-      case "facebook":
-      case "instagram":
-      case "audience_network":
+      case "fb":
+      case "ig":
+      case "an":
         formData.adMedia = "meta";
         formData.metaPlatform = utmSource;
         formData.metaAdId = params.get("utm_ad_id") || "";
