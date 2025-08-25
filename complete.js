@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const utmJs = (paramsJs.get("utm_source") || "").toLowerCase();
   const isMetaJs =
-    params.has("fbclid") || /facebook|instagram|meta/.test(utmJs);
+    paramsJs.has("fbclid") || /facebook|instagram|meta/.test(utmJs);
   const isGoogleAdsJs = paramsJs.has("gclid") || /google/.test(utmJs);
 
   if (paramsJs.has("complete") && !isTestJs) {
@@ -18,10 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    fbq("trackCustom", "auto_mechanic_register", {
-      source: isMetaJs ? "meta" : "other",
-      page: location.pathname,
-    });
+    if (isMetaJs) {
+      fbq("track", "Lead", {
+        content_name: "auto_mechanic_register",
+        value: 1000.0,
+        currency: "JPY",
+      });
+    }
   }
 
   /**

@@ -244,10 +244,13 @@
 							'value': 3000.0,
 							'currency': 'JPY'
 						});
+					}
 
-						fbq('trackCustom', 'auto_mechanic_mendan', {
-							source: isMetaHtml ? 'meta' : 'other',
-							page: location.pathname
+					if (isMetaHtml) {
+						fbq("track", "Lead", {
+							content_name: "auto_mechanic_mendan",
+							value: 2000.0,
+							currency: "JPY",
 						});
 					}
 				}
