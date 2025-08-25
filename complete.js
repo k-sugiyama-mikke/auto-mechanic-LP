@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         content_name: "auto_mechanic_register",
         value: 1000.0,
         currency: "JPY",
+        lead_type: "mechanic_entry_register",
       });
     }
   }
