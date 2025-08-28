@@ -234,7 +234,9 @@
 					// });
 
 					const utmHtml = (paramsHtml.get('utm_source') || '').toLowerCase();
-					const isMetaHtml = paramsHtml.has('fbclid') || /\b(facebook|instagram|meta|ig|fb)\b/.test(utmHtml); const isGoogleAdsHtml =
+					const isMetaHtml = paramsHtml.has('fbclid') || /\b(facebook|instagram|meta|ig|fb)\b/.test(utmHtml);
+
+					const isGoogleAdsHtml =
 						paramsHtml.has('gclid') || /google/.test(utmHtml);
 
 					if (!isTestHtml && isGoogleAdsHtml) {

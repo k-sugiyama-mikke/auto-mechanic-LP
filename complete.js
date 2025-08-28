@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     paramsJs.has("fbclid") || /\b(facebook|instagram|meta|ig|fb)\b/.test(utmJs);
   "gclid" || /google/.test(utmJs);
 
+  const isGoogleAdsJs = paramsJs.has("gclid") || /google/.test(utmJs);
+
   if (paramsJs.has("complete") && !isTestJs) {
     console.log("最終CV発火");
 
