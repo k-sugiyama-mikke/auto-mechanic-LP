@@ -234,8 +234,7 @@
 					// });
 
 					const utmHtml = (paramsHtml.get('utm_source') || '').toLowerCase();
-					const isMetaHtml = paramsHtml.has('fbclid') || /facebook|instagram|meta/.test(utmHtml);
-					const isGoogleAdsHtml =
+					const isMetaHtml = paramsHtml.has('fbclid') || /\b(facebook|instagram|meta|ig|fb)\b/.test(utmHtml); const isGoogleAdsHtml =
 						paramsHtml.has('gclid') || /google/.test(utmHtml);
 
 					if (!isTestHtml && isGoogleAdsHtml) {
@@ -246,7 +245,7 @@
 						});
 					}
 
-					if (isMetaHtml) {
+					if (!isTestHtml && isMetaHtml) {
 						fbq("track", "Lead", {
 							content_name: "auto_mechanic_mendan",
 							value: 2000.0,

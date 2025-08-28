@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const utmJs = (paramsJs.get("utm_source") || "").toLowerCase();
   const isMetaJs =
-    paramsJs.has("fbclid") || /facebook|instagram|meta/.test(utmJs);
-  const isGoogleAdsJs = paramsJs.has("gclid") || /google/.test(utmJs);
+    paramsJs.has("fbclid") || /\b(facebook|instagram|meta|ig|fb)\b/.test(utmJs);
+  "gclid" || /google/.test(utmJs);
 
   if (paramsJs.has("complete") && !isTestJs) {
     console.log("最終CV発火");
