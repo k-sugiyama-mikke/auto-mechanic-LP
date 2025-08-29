@@ -815,6 +815,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const platform =
       new URLSearchParams(window.location.search).get("platform") || "";
 
+    console.log("fireConversion");
+    console.log(platform);
+    console.log(uTmMedium);
+    console.log(step);
+
     if (step == 1) {
       switch (platform) {
         case "meta":
@@ -992,7 +997,9 @@ document.addEventListener("DOMContentLoaded", () => {
    * googleコンバージョン0を発火する(お気持ちはどちらに近い？)
    */
   function fireGoogleConversionZeroByDisplay() {
+    console.log("fireGoogleConversionZeroByDisplay");
     if (isTransitedZeroPage || isTest) {
+      console.log("return");
       return;
     }
     gtag("event", "conversion", {
