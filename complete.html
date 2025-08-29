@@ -219,41 +219,44 @@
 
 			TimerexCalendar({
 				'onBookingComplete': async function () {
-					// const displayTargets = document.querySelectorAll('.display-target');
-					// displayTargets.forEach(function (target) {
-					// 	target.style.display = 'none';
-					// });
 
-					// const hashedEmail_i = await sha256Hash(email_i || '');
-					// const hashedTell_i = await sha256Hash(formatToE164(tel_i) || '');
+					if (paramsHtml.has("complete") && !isTestHtml) {
+						console.log("最終CV発火");
 
-					// 拡張コンバージョンのユーザーデータ送信
-					// gtag('set', 'user_data', {
-					// 	'email': hashedEmail_i,
-					// 	'phone_number': hashedTell_i
-					// });
-
-					const utmHtml = (paramsHtml.get('utm_source') || '').toLowerCase();
-					const isMetaHtml = paramsHtml.has('fbclid') || /\b(facebook|instagram|meta|ig|fb)\b/.test(utmHtml);
-
-					const isGoogleAdsHtml =
-						paramsHtml.has('gclid') || /google/.test(utmHtml);
-
-					if (!isTestHtml && isGoogleAdsHtml) {
-						gtag('event', 'conversion', {
-							'send_to': 'AW-16680263633/JYZCCOLB-IYbENG_4pE-',
-							'value': 3000.0,
-							'currency': 'JPY'
-						});
-					}
-
-					if (!isTestHtml && isMetaHtml) {
-						fbq("track", "Lead", {
-							content_name: "auto_mechanic_mendan",
-							value: 2000.0,
-							currency: "JPY",
-							lead_type: 'mechanic_interview_register'
-						});
+						const platformHtml = paramsHtml.get("platform") || "";
+						const uTmMediumHtml = paramsHtml.get("utm_medium") || "";
+						switch (platformHtml) {
+							case "meta":
+								fbq("track", "Lead", {
+									content_name: "auto_mechanic_mendan",
+									value: 2000.0,
+									currency: "JPY",
+									lead_type: 'mechanic_interview_register'
+								});
+								break;
+							case "google":
+								switch (uTmMediumHtml) {
+									case "search":
+										gtag('event', 'conversion', {
+											'send_to': 'AW-16680263633/JYZCCOLB-IYbENG_4pE-',
+											'value': 3000.0,
+											'currency': 'JPY'
+										});
+										break;
+									case "display":
+										gtag('event', 'conversion', {
+											'send_to': 'AW-16680263633/Q6C1CJiVgpAbENG_4pE-',
+											'value': 2000.0,
+											'currency': 'JPY'
+										});
+										break;
+									default:
+										break;
+								}
+								break;
+							default:
+								break;
+						}
 					}
 				}
 			});

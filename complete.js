@@ -2,30 +2,42 @@ document.addEventListener("DOMContentLoaded", () => {
   const paramsJs = new URLSearchParams(window.location.search);
   const isTestJs = paramsJs.get("test") ? true : false;
 
-  const utmJs = (paramsJs.get("utm_source") || "").toLowerCase();
-  const isMetaJs =
-    paramsJs.has("fbclid") || /\b(facebook|instagram|meta|ig|fb)\b/.test(utmJs);
-
-  const isGoogleAdsJs = paramsJs.has("gclid") || /google/.test(utmJs);
-
   if (paramsJs.has("complete") && !isTestJs) {
     console.log("最終CV発火");
 
-    if (isGoogleAdsJs) {
-      gtag("event", "conversion", {
-        send_to: "AW-16680263633/U7UBCN_B-IYbENG_4pE-",
-        value: 1000.0,
-        currency: "JPY",
-      });
-    }
-
-    if (isMetaJs) {
-      fbq("track", "Lead", {
-        content_name: "auto_mechanic_register",
-        value: 1000.0,
-        currency: "JPY",
-        lead_type: "mechanic_entry_register",
-      });
+    const platformJs = paramsJs.get("platform") || "";
+    const uTmMediumJs = paramsJs.get("utm_medium") || "";
+    switch (platformJs) {
+      case "meta":
+        fbq("track", "Lead", {
+          content_name: "auto_mechanic_register",
+          value: 1000.0,
+          currency: "JPY",
+          lead_type: "mechanic_entry_register",
+        });
+        break;
+      case "google":
+        switch (uTmMediumJs) {
+          case "search":
+            gtag("event", "conversion", {
+              send_to: "AW-16680263633/U7UBCN_B-IYbENG_4pE-",
+              value: 1000.0,
+              currency: "JPY",
+            });
+            break;
+          case "display":
+            gtag("event", "conversion", {
+              send_to: "AW-16680263633/4dzpCJWVgpAbENG_4pE-",
+              value: 1000.0,
+              currency: "JPY",
+            });
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        break;
     }
   }
 

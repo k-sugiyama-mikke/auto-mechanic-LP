@@ -110,9 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
       form.classList.remove("invisible");
       slider.classList.add("invisible");
       offerLabel.classList.remove("invisible");
-      if (!isTransitedZeroPage) {
-        fireGoogleConversionZero();
-      }
+      fireConversion(1);
     });
 
   /**
@@ -134,9 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
       form.classList.remove("invisible");
       slider.classList.add("invisible");
       offerLabel.classList.remove("invisible");
-      if (!isTransitedZeroPage) {
-        fireGoogleConversionZero();
-      }
+      fireConversion(1);
     });
 
   /**
@@ -249,11 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
         slider.classList.add("invisible");
         slider.classList.add("invisible");
         checkCheckboxAndRadioForm(nowCurrentPage);
-
-        //コンバージョンタグ1を発火（1枚目の次へボタンを押した）
-        if (!isTransitedFirstPage) {
-          fireGoogleConversionFirst();
-        }
+        fireConversion(2);
 
         break;
       case 3:
@@ -270,11 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
           deleteDecorationAfterInputComplete();
           nextBtnDisabled();
         }
-
-        //コンバージョンタグ2を発火
-        if (!isTransitedSecondPage) {
-          fireGoogleConversionSecond();
-        }
+        fireConversion(3);
 
         break;
       case 4:
@@ -285,10 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
         slider.classList.remove("invisible");
 
         let validate = validateFormFourQuestion();
-        //コンバージョンタグ3を発火
-        if (!isTransitedThreePage) {
-          fireGoogleConversionThird();
-        }
+        fireConversion(4);
 
         const isLastPage = true;
         if (validate.result) {
@@ -392,16 +377,18 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+    const utmSource =
+      new URLSearchParams(window.location.search).get("utm_source") || "";
+    const nowPlatform =
+      new URLSearchParams(window.location.search).get("platform") || "";
+
     //広告媒体を取得する
-    const utmSource = params.get("utm_source") || "";
-    switch (utmSource) {
-      case "fb":
-      case "ig":
-      case "an":
+    switch (nowPlatform) {
+      case "meta":
         formData.adMedia = "meta";
         formData.metaPlatform = utmSource;
         formData.metaAdId = params.get("utm_ad_id") || "";
-        formData.metaCampainId = params.get("utm_campain_id") || "";
+        formData.metaCampaignId = params.get("utm_campaign_id") || "";
         formData.metaCampainName = params.get("utm_campaign") || "";
 
         break;
@@ -710,10 +697,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const x = targetBtnRect.right - wrapperRect.left + offsetX;
     const y = targetBtnRect.bottom - wrapperRect.top + offsetY;
 
-    //   console.log("x");
-    //   console.log("y");
-    //   console.log(x);
-    //   console.log(y);
     const hand = document.getElementById("hand-icon");
 
     hand.style.position = "absolute";
@@ -765,20 +748,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const submitBtn = document.getElementById("submit-btn");
     submitBtn.classList.remove("disabled");
   }
-
-  const swiper = new Swiper(".swiper", {
-    loop: true,
-    slidesPerView: "auto", // スライド幅自動
-    spaceBetween: 20,
-    speed: 3000, // スライドにかかる時間（ms）
-    autoplay: {
-      delay: 0, // 遅延なし
-      disableOnInteraction: false,
-    },
-    allowTouchMove: false, // スワイプ操作を無効
-    freeMode: true, // 自由モード（常に流れる）
-    freeModeMomentum: false, // 慣性無効（一定速度で流す）
-  });
 
   /**
    * ターゲットのボタンまでスクロールする
@@ -836,14 +805,105 @@ document.addEventListener("DOMContentLoaded", () => {
     t = setTimeout(setupSeamless, 200);
   });
 
-  /****************************
-   * コンバージョンタグ
-   ***************************/
+  /**
+   * コンバージョン発火する
+   * @param {number} step
+   */
+  function fireConversion(step) {
+    const uTmMedium =
+      new URLSearchParams(window.location.search).get("utm_medium") || "";
+    const platform =
+      new URLSearchParams(window.location.search).get("platform") || "";
+
+    if (step == 1) {
+      switch (platform) {
+        case "meta":
+          break;
+        case "google":
+          switch (uTmMedium) {
+            case "display":
+              fireGoogleConversionZeroByDisplay();
+              break;
+            case "search":
+              fireGoogleConversionZeroBySearch();
+              break;
+            default:
+              break;
+          }
+
+          break;
+        default:
+          break;
+      }
+    } else if (step == 2) {
+      switch (platform) {
+        case "meta":
+          break;
+        case "google":
+          switch (uTmMedium) {
+            case "display":
+              fireGoogleConversionFirstByDisplay();
+              break;
+            case "search":
+              fireGoogleConversionFirstBySearch();
+              break;
+            default:
+              break;
+          }
+          break;
+        default:
+          break;
+      }
+    } else if (step == 3) {
+      switch (platform) {
+        case "meta":
+          break;
+        case "google":
+          switch (uTmMedium) {
+            case "display":
+              fireGoogleConversionSecondByDisplay();
+              break;
+            case "search":
+              fireGoogleConversionSecondBySearch();
+              break;
+            default:
+              break;
+          }
+
+          break;
+        default:
+          break;
+      }
+    } else if (step == 4) {
+      switch (platform) {
+        case "meta":
+          break;
+        case "google":
+          switch (uTmMedium) {
+            case "display":
+              fireGoogleConversionThirdByDisplay();
+              break;
+            case "search":
+              fireGoogleConversionThirdBySearch();
+              break;
+            default:
+              break;
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  /***************************************
+   * google検索広告用のコンバージョンタグ
+   ***************************************/
 
   /**
-   * googleコンバージョン0を発火する
+   * googleコンバージョン0を発火する(お気持ちはどちらに近い？)
    */
-  function fireGoogleConversionZero() {
+  function fireGoogleConversionZeroBySearch() {
     if (isTransitedZeroPage || isTest) {
       return;
     }
@@ -858,9 +918,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * googleコンバージョン１を発火する
+   * googleコンバージョン１を発火する（どんな資格をお持ちですか？）
    */
-  function fireGoogleConversionFirst() {
+  function fireGoogleConversionFirstBySearch() {
     if (isTransitedFirstPage || isTest) {
       return;
     }
@@ -875,9 +935,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * googleコンバージョン2を発火する
+   * googleコンバージョン2を発火する（現在の年収）
    */
-  function fireGoogleConversionSecond() {
+  function fireGoogleConversionSecondBySearch() {
     if (isTransitedSecondPage || isTest) {
       return;
     }
@@ -892,9 +952,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * googleコンバージョン3を発火する
+   * googleコンバージョン3を発火する（個人情報１）
    */
-  function fireGoogleConversionThird() {
+  function fireGoogleConversionThirdBySearch() {
     if (isTransitedThreePage || isTest) {
       return;
     }
@@ -909,9 +969,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * googleコンバージョン4を発火する
+   * googleコンバージョン4を発火する（※登録になるので、ここは発火なし）
    */
-  function fireGoogleConversionFour() {
+  function fireGoogleConversionFourBySearch() {
     if (isTransitedFourPage || isTest) {
       return;
     }
@@ -925,20 +985,85 @@ document.addEventListener("DOMContentLoaded", () => {
     isTransitedFourPage = true;
   }
 
+  /***************************************
+   * googleディスプレイ広告用のコンバージョンタグ
+   ***************************************/
   /**
-   * googleコンバージョン5を発火する
+   * googleコンバージョン0を発火する(お気持ちはどちらに近い？)
    */
-  function fireGoogleConversionFive() {
-    if (isTransitedFivePage || isTest) {
+  function fireGoogleConversionZeroByDisplay() {
+    if (isTransitedZeroPage || isTest) {
       return;
     }
-
     gtag("event", "conversion", {
-      send_to: "AW-16680263633/hyI9CM3WivMaENG_4pE-",
+      send_to: "AW-16680263633/Jn76CIaVgpAbENG_4pE-",
+      value: 0.0,
+      currency: "JPY",
+    });
+    isTransitedZeroPage = true;
+  }
+
+  /**
+   * googleコンバージョン１を発火する（どんな資格をお持ちですか？）
+   */
+  function fireGoogleConversionFirstByDisplay() {
+    if (isTransitedFirstPage || isTest) {
+      return;
+    }
+    gtag("event", "conversion", {
+      send_to: "AW-16680263633/fbVNCImVgpAbENG_4pE-",
       value: 0.0,
       currency: "JPY",
     });
 
-    isTransitedFivePage = true;
+    isTransitedFirstPage = true;
+  }
+
+  /**
+   * googleコンバージョン2を発火する（現在の年収）
+   */
+  function fireGoogleConversionSecondByDisplay() {
+    if (isTransitedSecondPage || isTest) {
+      return;
+    }
+    gtag("event", "conversion", {
+      send_to: "AW-16680263633/_e8XCIyVgpAbENG_4pE-",
+      value: 10.0,
+      currency: "JPY",
+    });
+
+    isTransitedSecondPage = true;
+  }
+
+  /**
+   * googleコンバージョン3を発火する（個人情報１）
+   */
+  function fireGoogleConversionThirdByDisplay() {
+    if (isTransitedThreePage || isTest) {
+      return;
+    }
+    gtag("event", "conversion", {
+      send_to: "AW-16680263633/A71aCI-VgpAbENG_4pE-",
+      value: 100.0,
+      currency: "JPY",
+    });
+
+    isTransitedThreePage = true;
+  }
+
+  /**
+   * googleコンバージョン4を発火する（※登録になるので、ここは発火なし）
+   */
+  function fireGoogleConversionFourByDisplay() {
+    if (isTransitedFourPage || isTest) {
+      return;
+    }
+    gtag("event", "conversion", {
+      send_to: "AW-16680263633/sdQiCJKVgpAbENG_4pE-",
+      value: 200.0,
+      currency: "JPY",
+    });
+
+    isTransitedFourPage = true;
   }
 });
