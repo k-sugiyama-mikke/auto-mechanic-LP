@@ -387,6 +387,7 @@ document.addEventListener("DOMContentLoaded", () => {
       case "meta":
         formData.adMedia = "meta";
         formData.metaPlatform = utmSource;
+        formData.utmSource = utmSource;
         formData.metaAdId = params.get("utm_ad_id") || "";
         formData.metaCampaignId = params.get("utm_campaign_id") || "";
         formData.metaCampainName = params.get("utm_campaign") || "";
