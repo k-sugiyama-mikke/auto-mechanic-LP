@@ -330,6 +330,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // const result = await res.json();
         if (res.ok) {
+          if (!isTest) {
+            if (data.adMedia == "meta") {
+              fireGa4CvSubmitByMeta();
+            }
+          }
+
           const dir = location.pathname.replace(/[^/]+$/, "");
           const merged = new URLSearchParams(location.search); // いまのクエリを取得
           merged.set("complete", "1"); // 追加したいものだけ足す
@@ -416,6 +422,14 @@ document.addEventListener("DOMContentLoaded", () => {
   function init() {
     // 初期化
     updateSteps();
+
+    const platform =
+      new URLSearchParams(window.location.search).get("platform") || "";
+    console.log(platform);
+
+    if (platform == "meta") {
+      fireGa4CvStartByMeta();
+    }
   }
 
   /**
@@ -433,7 +447,7 @@ document.addEventListener("DOMContentLoaded", () => {
    */
   function backgroundReset() {
     const nextBtn = document.querySelector(".next-btn");
-    const submitBtn = document.querySelector(".submit-btn");
+    const submitBtn = document.getElementById("submit-btn");
 
     const formScreen = document.querySelector(".form-screen");
 
@@ -560,7 +574,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // フォーム3問目の監視対象の要素を取得
   const zipCodeInput = document.getElementById("zip-code");
   const birthInput = document.getElementById("birth");
-  const zipCodeCouter = document.getElementById("zip-code-counter");
+  const zipCodeCounter = document.getElementById("zip-code-counter");
 
   // イベント設定
   [zipCodeInput, birthInput].forEach((input) => {
@@ -584,8 +598,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const zipCode = zipCodeInput.value.trim();
     const birth = birthInput.value.trim();
     const zipCodeLength = zipCode.length;
-    console.log(zipCodeLength);
-    zipCodeCouter.textContent = 7 - zipCodeLength;
+
+    if (zipCodeCounter) {
+      zipCodeCounter.textContent = 7 - zipCodeLength;
+    }
 
     // 郵便番号：7桁の数字、誕生年：4桁の数字
     const zipCodeValid = /^\d{7}$/.test(zipCode);
@@ -824,6 +840,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (step == 1) {
       switch (platform) {
         case "meta":
+          fireGa4CvZeroByMeta();
           break;
         case "google":
           switch (uTmMedium) {
@@ -844,6 +861,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (step == 2) {
       switch (platform) {
         case "meta":
+          fireGa4CvFirstByMeta();
           break;
         case "google":
           switch (uTmMedium) {
@@ -863,6 +881,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (step == 3) {
       switch (platform) {
         case "meta":
+          fireGa4CvSecondByMeta();
           break;
         case "google":
           switch (uTmMedium) {
@@ -883,6 +902,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (step == 4) {
       switch (platform) {
         case "meta":
+          fireGa4CvThirdByMeta();
           break;
         case "google":
           switch (uTmMedium) {
@@ -1028,7 +1048,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * googleコンバージョン2を発火する（現在の年収）
+   * googleコンバージョン2を発火する（年収）
    */
   function fireGoogleConversionSecondByDisplay() {
     if (isTransitedSecondPage || isTest) {
@@ -1073,5 +1093,112 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     isTransitedFourPage = true;
+  }
+
+  /***************************************
+   * ga4用のコンバージョンタグ
+   ***************************************/
+
+  /**
+   * ga4CVの計測を開始する（フォーム開始）
+   */
+  function fireGa4CvStartByMeta() {
+    console.log("fireGa4CvStartByMeta");
+    if (isTest) {
+      console.log("return");
+      return;
+    }
+
+    gtag("event", "mechanic_ankert_v1_form_start", {
+      event_category: "form",
+      event_label: "mechanic_ankert_v1",
+    });
+  }
+
+  /**
+   * ga4CV0を発火する(お気持ちはどちらに近い？)
+   */
+  function fireGa4CvZeroByMeta() {
+    console.log("fireGa4CvZeroByMeta");
+    if (isTransitedZeroPage || isTest) {
+      console.log("return");
+      return;
+    }
+
+    gtag("event", "mechanic_ankert_v1_0", {
+      event_category: "form",
+      event_label: "mechanic_ankert_v1",
+    });
+
+    isTransitedZeroPage = true;
+  }
+  /**
+   * ga4CV1を発火する(どんな資格をお持ちですか？)
+   */
+  function fireGa4CvFirstByMeta() {
+    console.log("fireGa4CvFirstByMeta");
+    if (isTransitedFirstPage || isTest) {
+      console.log("return");
+      return;
+    }
+
+    gtag("event", "mechanic_ankert_v1_1", {
+      event_category: "form",
+      event_label: "mechanic_ankert_v1",
+    });
+
+    isTransitedFirstPage = true;
+  }
+
+  /**
+   * ga4CV2を発火する（年収）
+   */
+  function fireGa4CvSecondByMeta() {
+    console.log("fireGa4CvSecondByMeta");
+    if (isTransitedSecondPage || isTest) {
+      console.log("return");
+      return;
+    }
+
+    gtag("event", "mechanic_ankert_v1_2", {
+      event_category: "form",
+      event_label: "mechanic_ankert_v1",
+    });
+
+    isTransitedSecondPage = true;
+  }
+
+  /**
+   * ga4CV3を発火する(（個人情報１）)
+   */
+  function fireGa4CvThirdByMeta() {
+    console.log("fireGa4CvThirdByMeta");
+    if (isTransitedThreePage || isTest) {
+      console.log("return");
+      return;
+    }
+
+    gtag("event", "mechanic_ankert_v1_3", {
+      event_category: "form",
+      event_label: "mechanic_ankert_v1",
+    });
+
+    isTransitedThreePage = true;
+  }
+
+  /**
+   * ga4-Submitを発火する(フォーム登録)
+   */
+  function fireGa4CvSubmitByMeta() {
+    console.log("fireGa4CvSubmitByMeta");
+    if (isTest) {
+      console.log("return");
+      return;
+    }
+
+    gtag("event", "mechanic_ankert_v1_submit", {
+      event_category: "form",
+      event_label: "mechanic_ankert_v1",
+    });
   }
 });
