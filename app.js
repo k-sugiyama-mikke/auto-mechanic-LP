@@ -1109,6 +1109,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    console.log("fire fireGa4CvStartByMeta");
+
     gtag("event", "mechanic_ankert_v1_form_start", {
       event_category: "form",
       event_label: "mechanic_ankert_v1",
@@ -1124,6 +1126,8 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("return");
       return;
     }
+
+    console.log("fire fireGa4CvZeroByMeta");
 
     gtag("event", "mechanic_ankert_v1_0", {
       event_category: "form",
@@ -1141,6 +1145,8 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("return");
       return;
     }
+
+    console.log("fire fireGa4CvFirstByMeta");
 
     gtag("event", "mechanic_ankert_v1_1", {
       event_category: "form",
@@ -1160,6 +1166,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    console.log("fire fireGa4CvSecondByMeta");
+
     gtag("event", "mechanic_ankert_v1_2", {
       event_category: "form",
       event_label: "mechanic_ankert_v1",
@@ -1178,6 +1186,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    console.log("fire fireGa4CvThirdByMeta");
+
     gtag("event", "mechanic_ankert_v1_3", {
       event_category: "form",
       event_label: "mechanic_ankert_v1",
@@ -1195,6 +1205,8 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("return");
       return;
     }
+
+    console.log("fire fireGa4CvSubmitByMeta");
 
     gtag("event", "mechanic_ankert_v1_submit", {
       event_category: "form",
