@@ -6,8 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const progressNumerator = document.getElementById("progress-numerator");
   const progressDenominator = document.getElementById("progress-denominator");
   let currentPage = 0;
-  //0枚目
-  let isTransitedZeroPage = false;
+
   //1枚目
   let isTransitedFirstPage = false;
   //2枚目
@@ -930,7 +929,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * googleコンバージョン0を発火する(お気持ちはどちらに近い？)
    */
   function fireGoogleConversionZeroBySearch() {
-    if (isTransitedZeroPage || isTest) {
+    if (isTest) {
       return;
     }
 
@@ -939,8 +938,6 @@ document.addEventListener("DOMContentLoaded", () => {
       value: 0.0,
       currency: "JPY",
     });
-
-    isTransitedZeroPage = true;
   }
 
   /**
@@ -1019,7 +1016,7 @@ document.addEventListener("DOMContentLoaded", () => {
    */
   function fireGoogleConversionZeroByDisplay() {
     console.log("fireGoogleConversionZeroByDisplay");
-    if (isTransitedZeroPage || isTest) {
+    if (isTest) {
       console.log("return");
       return;
     }
@@ -1028,7 +1025,6 @@ document.addEventListener("DOMContentLoaded", () => {
       value: 0.0,
       currency: "JPY",
     });
-    isTransitedZeroPage = true;
   }
 
   /**
@@ -1122,7 +1118,7 @@ document.addEventListener("DOMContentLoaded", () => {
    */
   function fireGa4CvZeroByMeta() {
     console.log("fireGa4CvZeroByMeta");
-    if (isTransitedZeroPage || isTest) {
+    if (isTest) {
       console.log("return");
       return;
     }
@@ -1133,8 +1129,6 @@ document.addEventListener("DOMContentLoaded", () => {
       event_category: "form",
       event_label: "mechanic_ankert_v1",
     });
-
-    isTransitedZeroPage = true;
   }
   /**
    * ga4CV1を発火する(どんな資格をお持ちですか？)
