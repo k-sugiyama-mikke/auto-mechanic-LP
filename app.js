@@ -428,6 +428,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (platform == "meta") {
       fireGa4CvStartByMeta();
+    } else if (platform == "google") {
+      fireGa4CvStartByGoogle();
     }
   }
 
@@ -848,6 +850,7 @@ document.addEventListener("DOMContentLoaded", () => {
               break;
             case "search":
               fireGoogleConversionZeroBySearch();
+              fireGa4CvZeroByGoogle();
               break;
             default:
               break;
@@ -869,6 +872,7 @@ document.addEventListener("DOMContentLoaded", () => {
               break;
             case "search":
               fireGoogleConversionFirstBySearch();
+              fireGa4CvFirstByGoogle();
               break;
             default:
               break;
@@ -889,6 +893,7 @@ document.addEventListener("DOMContentLoaded", () => {
               break;
             case "search":
               fireGoogleConversionSecondBySearch();
+              fireGa4CvSecondByGoogle();
               break;
             default:
               break;
@@ -910,6 +915,7 @@ document.addEventListener("DOMContentLoaded", () => {
               break;
             case "search":
               fireGoogleConversionThirdBySearch();
+              fireGa4CvThirdByGoogle();
               break;
             default:
               break;
@@ -1092,7 +1098,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /***************************************
-   * ga4用のコンバージョンタグ
+   * ga4用のコンバージョンタグ（meta広告用）
    ***************************************/
 
   /**
@@ -1205,6 +1211,123 @@ document.addEventListener("DOMContentLoaded", () => {
     gtag("event", "mechanic_ankert_v1_submit", {
       event_category: "form",
       event_label: "mechanic_ankert_v1",
+    });
+  }
+
+  /***************************************
+   * ga4用のコンバージョンタグ（google広告用）
+   ***************************************/
+
+  /**
+   * ga4CVの計測を開始する（フォーム開始）
+   */
+  function fireGa4CvStartByGoogle() {
+    console.log("fireGa4CvStartByGoogle");
+    if (isTest) {
+      console.log("return");
+      return;
+    }
+
+    console.log("fire fireGa4CvStartByGoogle");
+
+    gtag("event", "mechanic_ankert_v1_form_start_by_google_l", {
+      event_category: "form_by_google_l",
+      event_label: "mechanic_ankert_v1_by_google_l",
+    });
+  }
+
+  /**
+   * ga4CV0を発火する(お気持ちはどちらに近い？)
+   */
+  function fireGa4CvZeroByGoogle() {
+    console.log("fireGa4CvZeroByGoogle");
+    if (isTest) {
+      console.log("return");
+      return;
+    }
+
+    console.log("fire fireGa4CvZeroByGoogle");
+
+    gtag("event", "mechanic_ankert_v1_0_by_google_l", {
+      event_category: "form_by_google_l",
+      event_label: "mechanic_ankert_v1_by_google_l",
+    });
+  }
+  /**
+   * ga4CV1を発火する(どんな資格をお持ちですか？)
+   */
+  function fireGa4CvFirstByGoogle() {
+    console.log("fireGa4CvFirstByGoogle");
+    if (isTransitedFirstPage || isTest) {
+      console.log("return");
+      return;
+    }
+
+    console.log("fire fireGa4CvFirstByGoogle");
+
+    gtag("event", "mechanic_ankert_v1_1_by_google_l", {
+      event_category: "form_by_google_l",
+      event_label: "mechanic_ankert_v1_by_google_l",
+    });
+
+    isTransitedFirstPage = true;
+  }
+
+  /**
+   * ga4CV2を発火する（年収）
+   */
+  function fireGa4CvSecondByGoogle() {
+    console.log("fireGa4CvSecondByGoogle");
+    if (isTransitedSecondPage || isTest) {
+      console.log("return");
+      return;
+    }
+
+    console.log("fire fireGa4CvSecondByGoogle");
+
+    gtag("event", "mechanic_ankert_v1_2_by_google_l", {
+      event_category: "form_by_google_l",
+      event_label: "mechanic_ankert_v1_by_google_l",
+    });
+
+    isTransitedSecondPage = true;
+  }
+
+  /**
+   * ga4CV3を発火する(（個人情報１）)
+   */
+  function fireGa4CvThirdByGoogle() {
+    console.log("fireGa4CvThirdByGoogle");
+    if (isTransitedThreePage || isTest) {
+      console.log("return");
+      return;
+    }
+
+    console.log("fire fireGa4CvThirdByGoogle");
+
+    gtag("event", "mechanic_ankert_v1_3_by_google_l", {
+      event_category: "form_by_google_l",
+      event_label: "mechanic_ankert_v1_by_google_l",
+    });
+
+    isTransitedThreePage = true;
+  }
+
+  /**
+   * ga4-Submitを発火する(フォーム登録)
+   */
+  function fireGa4CvSubmitByGoogle() {
+    console.log("fireGa4CvSubmitByGoogle");
+    if (isTest) {
+      console.log("return");
+      return;
+    }
+
+    console.log("fire fireGa4CvSubmitByGoogle");
+
+    gtag("event", "mechanic_ankert_v1_submit_by_google_l", {
+      event_category: "form_by_google_l",
+      event_label: "mechanic_ankert_v1_by_google_l",
     });
   }
 });
