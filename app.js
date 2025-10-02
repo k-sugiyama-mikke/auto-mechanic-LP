@@ -364,6 +364,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputs = form.querySelectorAll("input");
     const formData = {};
     const params = new URLSearchParams(window.location.search);
+    formData.localTest = false;
 
     inputs.forEach((input) => {
       const name = input.name;
