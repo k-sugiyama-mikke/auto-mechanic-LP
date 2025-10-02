@@ -364,7 +364,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputs = form.querySelectorAll("input");
     const formData = {};
     const params = new URLSearchParams(window.location.search);
-    formData["localTest"] = false;
+    //trueの時はテストモード（reCAPTCHA無効）
+    formData["localTest"] = true;
 
     inputs.forEach((input) => {
       const name = input.name;
@@ -626,9 +627,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const nameInput = document.getElementById("name");
   const telInput = document.getElementById("tel");
   const telCouter = document.getElementById("tel-counter");
+  const emailInput = document.getElementById("email");
 
   // イベント設定
-  [nameInput, telInput].forEach((input) => {
+  [nameInput, telInput, emailInput].forEach((input) => {
     input.addEventListener("input", () => {
       const validate = validateFormFourQuestion();
       const isLastPage = true;
