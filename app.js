@@ -398,6 +398,7 @@ document.addEventListener("DOMContentLoaded", () => {
         formData.metaAdId = params.get("utm_ad_id") || "";
         formData.metaCampaignId = params.get("utm_campaign_id") || "";
         formData.metaCampainName = params.get("utm_campaign") || "";
+        formData.metaAdName = params.get("ad_name") || "";
 
         break;
       case "google":
