@@ -269,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
         prevBtn.classList.remove("invisible");
         nextBtn.classList.add("invisible");
         submitBtn.classList.remove("invisible");
-        slider.classList.remove("invisible");
+        slider.classList.add("invisible");
 
         let validate = validateFormFourQuestion();
         fireConversion(4);
@@ -383,6 +383,9 @@ document.addEventListener("DOMContentLoaded", () => {
         formData[name] = value;
       }
     });
+
+    const prefectureSelectArea = document.getElementById("prefecture");
+    formData["prefecture"] = prefectureSelectArea.value;
 
     const utmSource =
       new URLSearchParams(window.location.search).get("utm_source") || "";
@@ -581,6 +584,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const zipCodeInput = document.getElementById("zip-code");
   const birthInput = document.getElementById("birth");
   const zipCodeCounter = document.getElementById("zip-code-counter");
+  const prefectureInput = document.getElementById("prefecture");
 
   // イベント設定
   [zipCodeInput, birthInput].forEach((input) => {
@@ -596,6 +600,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // 都道府県セレクトボックス
+  prefectureInput.addEventListener("change", () => {
+    if (validateFormThirdQuestion()) {
+      addDecorationAfterInputComplete();
+      nextBtnInvalidationCancel();
+      targetBtnScroll("next-btn");
+    } else {
+      deleteDecorationAfterInputComplete();
+      nextBtnDisabled();
+    }
+  });
+
+  /**
+   * 郵便番号が該当しない場合のセレクトボックス
+   */
+  const notZipTrigger = document.getElementById("not-zip");
+  const notZipSelectBox = document.getElementById("not-zip-selectBox");
+
+  notZipTrigger.addEventListener("click", () => {
+    const open = notZipSelectBox.classList.toggle("open");
+    notZipTrigger.classList.toggle("is-open", open);
+    notZipTrigger.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
   /**
    * フォーム3問目のバリデーションチェック
    */
@@ -604,6 +632,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const zipCode = zipCodeInput.value.trim();
     const birth = birthInput.value.trim();
     const zipCodeLength = zipCode.length;
+    const prefecture = prefectureInput.value.trim();
 
     if (zipCodeCounter) {
       zipCodeCounter.textContent = 7 - zipCodeLength;
@@ -615,6 +644,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (zipCodeValid && birthValid) {
       result = true;
+    }
+
+    if (!zipCodeValid) {
+      if (prefecture != "" && prefecture != "選択してください") {
+        if (birthValid) {
+          result = true;
+        }
+      }
     }
 
     return result;
