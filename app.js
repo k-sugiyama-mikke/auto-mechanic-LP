@@ -242,7 +242,6 @@ document.addEventListener("DOMContentLoaded", () => {
         nextBtn.classList.add("invisible");
         submitBtn.classList.add("invisible");
         slider.classList.add("invisible");
-        slider.classList.add("invisible");
         checkCheckboxAndRadioForm(nowCurrentPage);
         fireConversion(2);
 
@@ -252,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
         prevBtn.classList.remove("invisible");
         nextBtn.classList.remove("invisible");
         submitBtn.classList.add("invisible");
-        slider.classList.remove("invisible");
+        slider.classList.add("invisible");
 
         if (validateFormThirdQuestion()) {
           addDecorationAfterInputComplete();
