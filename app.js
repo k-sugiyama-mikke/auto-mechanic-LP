@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const slider = document.getElementById("slider");
     const currentPlan = document.getElementById("current-plan");
     currentPlan.value = "今は情報収集したい";
-    const offerLabel = document.getElementById("offer-label");
+    // const offerLabel = document.getElementById("offer-label");
     const fvBtnWrapper = document.getElementById("fv-btn-wrapper");
     const operaterZone = document.getElementById("operater-zone");
 
@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
     slider.classList.add("invisible");
     fvBtnWrapper.classList.add("invisible");
     operaterZone.classList.add("invisible");
-    offerLabel.classList.remove("invisible");
+    // offerLabel.classList.remove("invisible");
     fireConversion(1);
   });
 
