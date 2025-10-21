@@ -244,12 +244,12 @@
 						const uTmMediumHtml = paramsHtml.get("utm_medium") || "";
 						switch (platformHtml) {
 							case "meta":
-								fbq("track", "Lead", {
-									content_name: "auto_mechanic_mendan",
-									value: 2000.0,
-									currency: "JPY",
-									lead_type: 'mechanic_interview_register'
-								});
+								// fbq("track", "Lead", {
+								// 	content_name: "auto_mechanic_mendan",
+								// 	value: 2000.0,
+								// 	currency: "JPY",
+								// 	lead_type: 'mechanic_interview_register'
+								// });
 								break;
 							case "google":
 								switch (uTmMediumHtml) {
@@ -261,11 +261,11 @@
 										});
 										break;
 									case "display":
-										gtag('event', 'conversion', {
-											'send_to': 'AW-16680263633/Q6C1CJiVgpAbENG_4pE-',
-											'value': 2000.0,
-											'currency': 'JPY'
-										});
+										// gtag('event', 'conversion', {
+										// 	'send_to': 'AW-16680263633/Q6C1CJiVgpAbENG_4pE-',
+										// 	'value': 2000.0,
+										// 	'currency': 'JPY'
+										// });
 										break;
 									default:
 										break;

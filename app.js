@@ -1338,9 +1338,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log("fire fireGa4CvStartByGoogle");
 
-    gtag("event", "mechanic_ankert_v1_form_start_by_google_l", {
-      event_category: "form_by_google_l",
-      event_label: "mechanic_ankert_v1_by_google_l",
+    gtag("event", "mechanic_ankert_v1_form_start_g", {
+      event_category: "form_by_g",
+      event_label: "mechanic_ankert_v1_by_g",
     });
   }
 
@@ -1356,9 +1356,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log("fire fireGa4CvZeroByGoogle");
 
-    gtag("event", "mechanic_ankert_v1_0_by_google_l", {
-      event_category: "form_by_google_l",
-      event_label: "mechanic_ankert_v1_by_google_l",
+    gtag("event", "mechanic_ankert_v1_0_g", {
+      event_category: "form_by_g",
+      event_label: "mechanic_ankert_v1_by_g",
     });
   }
   /**
@@ -1373,9 +1373,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log("fire fireGa4CvFirstByGoogle");
 
-    gtag("event", "mechanic_ankert_v1_1_by_google_l", {
-      event_category: "form_by_google_l",
-      event_label: "mechanic_ankert_v1_by_google_l",
+    gtag("event", "mechanic_ankert_v1_1_g", {
+      event_category: "form_by_g",
+      event_label: "mechanic_ankert_v1_by_g",
     });
 
     isTransitedFirstPage = true;
@@ -1393,9 +1393,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log("fire fireGa4CvSecondByGoogle");
 
-    gtag("event", "mechanic_ankert_v1_2_by_google_l", {
-      event_category: "form_by_google_l",
-      event_label: "mechanic_ankert_v1_by_google_l",
+    gtag("event", "mechanic_ankert_v1_2_g", {
+      event_category: "form_by_g",
+      event_label: "mechanic_ankert_v1_by_g",
     });
 
     isTransitedSecondPage = true;
@@ -1413,9 +1413,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log("fire fireGa4CvThirdByGoogle");
 
-    gtag("event", "mechanic_ankert_v1_3_by_google_l", {
-      event_category: "form_by_google_l",
-      event_label: "mechanic_ankert_v1_by_google_l",
+    gtag("event", "mechanic_ankert_v1_3_g", {
+      event_category: "form_by_g",
+      event_label: "mechanic_ankert_v1_by_g",
     });
 
     isTransitedThreePage = true;
@@ -1433,9 +1433,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log("fire fireGa4CvSubmitByGoogle");
 
-    gtag("event", "mechanic_ankert_v1_submit_by_google_l", {
-      event_category: "form_by_google_l",
-      event_label: "mechanic_ankert_v1_by_google_l",
+    gtag("event", "mechanic_ankert_v1_submit_g", {
+      event_category: "form_by_g",
+      event_label: "mechanic_ankert_v1_by_g",
     });
   }
 });
