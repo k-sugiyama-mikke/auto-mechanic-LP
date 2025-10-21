@@ -1068,7 +1068,7 @@ document.addEventListener("DOMContentLoaded", () => {
       currency: "JPY",
     });
 
-    isTransitedFirstPage = true;
+    // isTransitedFirstPage = true;
   }
 
   /**
@@ -1085,7 +1085,7 @@ document.addEventListener("DOMContentLoaded", () => {
       currency: "JPY",
     });
 
-    isTransitedSecondPage = true;
+    // isTransitedSecondPage = true;
   }
 
   /**
@@ -1102,7 +1102,7 @@ document.addEventListener("DOMContentLoaded", () => {
       currency: "JPY",
     });
 
-    isTransitedThreePage = true;
+    // isTransitedThreePage = true;
   }
 
   /**
@@ -1119,7 +1119,7 @@ document.addEventListener("DOMContentLoaded", () => {
       currency: "JPY",
     });
 
-    isTransitedFourPage = true;
+    // isTransitedFourPage = true;
   }
 
   /***************************************
@@ -1129,7 +1129,6 @@ document.addEventListener("DOMContentLoaded", () => {
    * googleコンバージョン0を発火する(お気持ちはどちらに近い？)
    */
   function fireGoogleConversionZeroByDisplay() {
-    console.log("fireGoogleConversionZeroByDisplay");
     if (isTest) {
       console.log("return");
       return;
@@ -1331,6 +1330,7 @@ document.addEventListener("DOMContentLoaded", () => {
    */
   function fireGa4CvStartByGoogle() {
     console.log("fireGa4CvStartByGoogle");
+
     if (isTest) {
       console.log("return");
       return;
@@ -1349,6 +1349,7 @@ document.addEventListener("DOMContentLoaded", () => {
    */
   function fireGa4CvZeroByGoogle() {
     console.log("fireGa4CvZeroByGoogle");
+
     if (isTest) {
       console.log("return");
       return;
