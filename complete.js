@@ -9,12 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const uTmMediumJs = paramsJs.get("utm_medium") || "";
     switch (platformJs) {
       case "meta":
-        fbq("track", "Lead", {
-          content_name: "auto_mechanic_register",
-          value: 1000.0,
-          currency: "JPY",
-          lead_type: "mechanic_entry_register",
-        });
+        // fbq("track", "Lead", {
+        //   content_name: "auto_mechanic_register",
+        //   value: 1000.0,
+        //   currency: "JPY",
+        //   lead_type: "mechanic_entry_register",
+        // });
         break;
       case "google":
         switch (uTmMediumJs) {
