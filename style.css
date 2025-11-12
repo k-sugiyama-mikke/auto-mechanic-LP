@@ -1317,6 +1317,7 @@ FV（ボタン）
   width: 100%;
   height: auto;
   object-fit: cover;
+  height: 60px;
 }
 
 @keyframes scroll-left {
