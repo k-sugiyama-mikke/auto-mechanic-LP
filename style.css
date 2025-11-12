@@ -64,7 +64,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1a47ab;
+  background-color: #013452;
   color: #fff;
 }
 
@@ -214,7 +214,6 @@ FV（ボタン）
 }
 
 .fv-btn-inner {
-  padding: 1.5rem;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -1338,7 +1337,7 @@ FV（ボタン）
   flex-direction: column;
   padding: 0.6rem 0;
   font-size: 0.6rem;
-  background-color: #1a47ab;
+  background-color: #013452;
   color: #fff;
   margin-top: auto;
 }
