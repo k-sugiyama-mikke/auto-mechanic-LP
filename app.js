@@ -28,10 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
   init();
 
   //郵便番号フォームの文字数制限
-  const zipCode = document.getElementById("zip-code");
-  zipCode.setAttribute("pattern", "[0-9]*");
-  zipCode.setAttribute("inputmode", "numeric");
-  zipCode.setAttribute("maxlength", "7");
+  //   const zipCode = document.getElementById("zip-code");
+  //   zipCode.setAttribute("pattern", "[0-9]*");
+  //   zipCode.setAttribute("inputmode", "numeric");
+  //   zipCode.setAttribute("maxlength", "7");
 
   //生まれ年フォームの文字数制限
   const birth = document.getElementById("birth");
@@ -312,21 +312,44 @@ document.addEventListener("DOMContentLoaded", () => {
       case 4:
         console.log("case 4");
         prevBtn.classList.remove("invisible");
+        submitBtn.classList.add("invisible");
+        nextBtn.classList.remove("invisible");
+        slider.classList.add("invisible");
+
+        const step4ValidateResult = validateFormFourQuestion().result;
+
+        if (step4ValidateResult) {
+          //以下変更
+          console.log("validateFormFourQuestion OK1");
+          addDecorationAfterInputComplete();
+          nextBtnInvalidationCancel();
+        } else {
+          console.log("validateFormFourQuestion NG");
+
+          deleteDecorationAfterInputComplete();
+          nextBtnDisabled();
+        }
+
+        fireConversion(4);
+        break;
+
+      case 5:
+        console.log("case 5");
         nextBtn.classList.add("invisible");
         submitBtn.classList.remove("invisible");
         slider.classList.remove("invisible");
 
-        let validate = validateFormFourQuestion();
-        fireConversion(4);
-
         const isLastPage = true;
-        if (validate.result) {
+        let step5ValidateResult = validateFormFiveQuestion();
+
+        if (step5ValidateResult.result) {
           addDecorationAfterInputComplete(isLastPage);
           submitBtnInvalidationCancel();
         } else {
           deleteDecorationAfterInputComplete();
           submitBtnDisabled();
         }
+
         break;
 
       default:
@@ -410,7 +433,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const formData = {};
     const params = new URLSearchParams(window.location.search);
     //trueの時はテストモード（reCAPTCHA無効）
-    formData["localTest"] = false;
+    formData["localTest"] = true;
 
     inputs.forEach((input) => {
       const name = input.name;
@@ -631,24 +654,11 @@ document.addEventListener("DOMContentLoaded", () => {
    *************************************************/
 
   // フォーム3問目の監視対象の要素を取得
-  const zipCodeInput = document.getElementById("zip-code");
-  const birthInput = document.getElementById("birth");
-  const zipCodeCounter = document.getElementById("zip-code-counter");
+  //   const zipCodeInput = document.getElementById("zip-code");
+  //   const zipCodeCounter = document.getElementById("zip-code-counter");
   const prefectureInput = document.getElementById("prefecture");
 
   // イベント設定
-  [zipCodeInput, birthInput].forEach((input) => {
-    input.addEventListener("input", () => {
-      if (validateFormThirdQuestion()) {
-        addDecorationAfterInputComplete();
-        nextBtnInvalidationCancel();
-        targetBtnScroll("next-btn");
-      } else {
-        deleteDecorationAfterInputComplete();
-        nextBtnDisabled();
-      }
-    });
-  });
 
   // 都道府県セレクトボックス
   prefectureInput.addEventListener("change", () => {
@@ -665,44 +675,40 @@ document.addEventListener("DOMContentLoaded", () => {
   /**
    * 郵便番号が該当しない場合のセレクトボックス
    */
-  const notZipTrigger = document.getElementById("not-zip");
-  const notZipSelectBox = document.getElementById("not-zip-selectBox");
+  //   const notZipTrigger = document.getElementById("not-zip");
+  //   const notZipSelectBox = document.getElementById("not-zip-selectBox");
 
-  notZipTrigger.addEventListener("click", () => {
-    const open = notZipSelectBox.classList.toggle("open");
-    notZipTrigger.classList.toggle("is-open", open);
-    notZipTrigger.setAttribute("aria-expanded", open ? "true" : "false");
-  });
+  //   notZipTrigger.addEventListener("click", () => {
+  //     const open = notZipSelectBox.classList.toggle("open");
+  //     notZipTrigger.classList.toggle("is-open", open);
+  //     notZipTrigger.setAttribute("aria-expanded", open ? "true" : "false");
+  //   });
 
   /**
    * フォーム3問目のバリデーションチェック
    */
   function validateFormThirdQuestion() {
     let result = false;
-    const zipCode = zipCodeInput.value.trim();
-    const birth = birthInput.value.trim();
-    const zipCodeLength = zipCode.length;
+    // const zipCode = zipCodeInput.value.trim();
+    // const birth = birthInput.value.trim();
+    // const zipCodeLength = zipCode.length;
     const prefecture = prefectureInput.value.trim();
 
-    if (zipCodeCounter) {
-      zipCodeCounter.textContent = 7 - zipCodeLength;
-    }
+    // if (zipCodeCounter) {
+    //   zipCodeCounter.textContent = 7 - zipCodeLength;
+    // }
 
     // 郵便番号：7桁の数字、誕生年：4桁の数字
-    const zipCodeValid = /^\d{7}$/.test(zipCode);
-    const birthValid = /^\d{4}$/.test(birth);
+    // const zipCodeValid = /^\d{7}$/.test(zipCode);
+    // const birthValid = /^\d{4}$/.test(birth);
 
-    if (zipCodeValid && birthValid) {
+    // if (birthValid) {
+    //   result = true;
+    //   return result;
+    // }
+
+    if (prefecture != "" && prefecture != "選択してください") {
       result = true;
-      return result;
-    }
-
-    if (!zipCodeValid) {
-      if (prefecture != "" && prefecture != "選択してください") {
-        if (birthValid) {
-          result = true;
-        }
-      }
     }
 
     return result;
@@ -711,25 +717,21 @@ document.addEventListener("DOMContentLoaded", () => {
   /***********************************************
    * フォーム4問目のバリデーションチェック
    *************************************************/
+  const nameInput = document.getElementById("name");
+  const birthInput = document.getElementById("birth");
 
   // フォーム4問目の監視対象の要素を取得
-  const nameInput = document.getElementById("name");
-  const telInput = document.getElementById("tel");
-  const telCouter = document.getElementById("tel-counter");
-  const emailInput = document.getElementById("email");
-
   // イベント設定
-  [nameInput, telInput, emailInput].forEach((input) => {
+  [nameInput, birthInput].forEach((input) => {
     input.addEventListener("input", () => {
       const validate = validateFormFourQuestion();
-      const isLastPage = true;
       if (validate.result) {
-        addDecorationAfterInputComplete(isLastPage);
-        submitBtnInvalidationCancel();
-        targetBtnScroll("submit-btn");
+        addDecorationAfterInputComplete();
+        nextBtnInvalidationCancel();
+        targetBtnScroll("next-btn");
       } else {
         deleteDecorationAfterInputComplete();
-        submitBtnDisabled();
+        nextBtnDisabled();
       }
     });
   });
@@ -744,28 +746,76 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const nameValue = document.getElementById("name").value.trim();
+    const birthValue = document.getElementById("birth").value.trim();
+
+    // 名前が空でない
+    const nameValid = nameValue.length > 0;
+    // 生まれ年が空でない
+    const birthValid = birthValue.length > 0;
+
+    if (!nameValid || !birthValid) {
+      res.result = false;
+      return res;
+    }
+
+    return res;
+  }
+
+  /***********************************************
+   * フォーム5問目のバリデーションチェック
+   *************************************************/
+  const telInput = document.getElementById("tel");
+  const telCouter = document.getElementById("tel-counter");
+  const emailInput = document.getElementById("email");
+
+  // イベント設定
+  [telInput, emailInput].forEach((input) => {
+    input.addEventListener("input", () => {
+      const validate = validateFormFiveQuestion();
+      const isLastPage = true;
+      if (validate.result) {
+        addDecorationAfterInputComplete(isLastPage);
+        submitBtnInvalidationCancel();
+
+        document
+          .getElementById("step-5-err-msg__wrapper")
+          .classList.add("invisible");
+
+        targetBtnScroll("submit-btn");
+      } else {
+        deleteDecorationAfterInputComplete();
+        submitBtnDisabled();
+
+        const step5ErrMsg = validate.msg;
+        if (step5ErrMsg != "") {
+          document
+            .getElementById("step-5-err-msg__wrapper")
+            .classList.remove("invisible");
+
+          document.getElementById("step-5-err-msg").textContent = validate.msg;
+          return;
+        }
+      }
+    });
+  });
+
+  /**
+   * フォームの5問目のバリデーションチェック
+   */
+  function validateFormFiveQuestion() {
+    let res = {
+      result: true,
+      msg: "",
+    };
+
     const telValue = document.getElementById("tel").value.trim();
     const emailValue = document.getElementById("email").value.trim();
 
     const telLength = telValue.length;
     telCouter.textContent = 11 - telLength;
 
-    // 名前が空でない
-    const nameValid = nameValue.length > 0;
-
     // 電話番号: 数字のみで10桁または11桁
     const telValid = /^\d{11}$/.test(telValue);
-
-    if (!nameValid) {
-      res.result = false;
-      return res;
-    }
-
-    if (!telValid) {
-      res.result = false;
-      res.msg = "正しい電話番号を入力してください";
-      return res;
-    }
 
     if (emailValue.length > 0) {
       if (!isValidEmail(emailValue)) {
@@ -773,6 +823,11 @@ document.addEventListener("DOMContentLoaded", () => {
         res.msg = "正しいメールアドレスを入力してください";
         return res;
       }
+    }
+
+    if (!telValid) {
+      res.result = false;
+      return res;
     }
 
     return res;
@@ -1037,6 +1092,27 @@ document.addEventListener("DOMContentLoaded", () => {
         default:
           break;
       }
+    } else if (step == 5) {
+      switch (platform) {
+        case "meta":
+          fireGa4CvFourByMeta();
+          break;
+        case "google":
+          switch (uTmMedium) {
+            case "display":
+              fireGoogleConversionFourByDisplay();
+              break;
+            case "search":
+              fireGoogleConversionFourBySearch();
+              fireGa4CvFourByGoogle();
+              break;
+            default:
+              break;
+          }
+          break;
+        default:
+          break;
+      }
     }
   }
 
@@ -1111,7 +1187,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * googleコンバージョン4を発火する（※登録になるので、ここは発火なし）
+   * googleコンバージョン4を発火する
    */
   function fireGoogleConversionFourBySearch() {
     if (isTransitedFourPage || isTest) {
@@ -1309,6 +1385,26 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
+   * ga4CV4を発火する(（個人情報2）)
+   */
+  function fireGa4CvFourByMeta() {
+    console.log("fireGa4CvFourByMeta");
+    if (isTransitedFourPage || isTest) {
+      console.log("return");
+      return;
+    }
+
+    console.log("fire fireGa4CvFourByMeta");
+
+    gtag("event", "mechanic_ankert_v1_4", {
+      event_category: "form",
+      event_label: "mechanic_ankert_v1",
+    });
+
+    isTransitedFourPage = true;
+  }
+
+  /**
    * ga4-Submitを発火する(フォーム登録)
    */
   function fireGa4CvSubmitByMeta() {
@@ -1425,6 +1521,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     isTransitedThreePage = true;
+  }
+
+  /**
+   * ga4CV4を発火する(（個人情報2）)
+   */
+  function fireGa4CvFourByGoogle() {
+    console.log("fireGa4CvFourByGoogle");
+    if (isTransitedFourPage || isTest) {
+      console.log("return");
+      return;
+    }
+
+    console.log("fire fireGa4CvFourByGoogle");
+
+    gtag("event", "mechanic_ankert_v1_4_g", {
+      event_category: "form_by_g",
+      event_label: "mechanic_ankert_v1_by_g",
+    });
+
+    isTransitedFourPage = true;
   }
 
   /**
