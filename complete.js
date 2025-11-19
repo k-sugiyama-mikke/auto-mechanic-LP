@@ -1,4 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
+  //年齢確認フラグ
+  const isAgeOverLimit =
+    (sessionStorage.getItem("isAgeOverLimit") || "") === "true";
+
+  console.log("isAgeOverLimit:", isAgeOverLimit);
+
+  const ctaBtn = document.getElementById("cta-btn");
+  const ctaBtnBottom = document.getElementById("cta-btn-bottom");
+  const timerex = document.getElementById("timerex_calendar");
+  const topSectionV1 = document.getElementById("top-section-v1");
+  const topSectionV2 = document.getElementById("top-section-v2");
+
+  if (isAgeOverLimit) {
+    timerex.classList.add("invisible");
+    ctaBtn.classList.add("invisible");
+    ctaBtnBottom.classList.add("invisible");
+    topSectionV1.classList.add("invisible");
+    topSectionV2.classList.remove("invisible");
+  } else {
+    topSectionV2.classList.add("invisible");
+    topSectionV1.classList.remove("invisible");
+  }
+  //年齢確認フラグ end
+
   const paramsJs = new URLSearchParams(window.location.search);
   const isTestJs = paramsJs.get("test") ? true : false;
 

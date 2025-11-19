@@ -27,7 +27,7 @@ body {
   flex-direction: column;
   padding: 0.8rem 0;
   font-size: 0.8rem;
-  background-color: #1a47ab;
+  background-color: #013452;
   color: #fff;
 }
 
@@ -141,7 +141,7 @@ body {
 ヘッダー
 ***************************/
 header {
-  background-color: #143378;
+  background-color: #013452;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -191,6 +191,10 @@ header {
   letter-spacing: 0.05em;
 }
 
+.top-section.invisible {
+  display: none;
+}
+
 .top-section::after {
   position: absolute;
   bottom: -20px;
@@ -223,6 +227,10 @@ CTA
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.cta-wrapper.invisible {
+  display: none;
 }
 
 .cta-line__title {
@@ -782,6 +790,10 @@ TimeRex
   border-left: 30px solid transparent; /* 左を透明 */
   border-right: 30px solid transparent; /* 右を透明 */
   border-top: 20px solid #143378; /* 上に色 → 下向き三角形 */
+}
+
+.timerex_calendar.invisible {
+  display: none;
 }
 
 /***************************

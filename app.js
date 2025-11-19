@@ -186,9 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("terms-dialog-close")
     .addEventListener("click", () => {
-      console.log("クリックされた");
       const dialog = document.getElementById("terms-dialog");
-      console.log(dialog);
       dialog.classList.add("invisible");
     });
 
@@ -196,9 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * 利用規約モーダルを閉じる（画面）
    */
   document.getElementById("terms-dialog").addEventListener("click", () => {
-    console.log("クリックされた");
     const dialog = document.getElementById("terms-dialog");
-    console.log(dialog);
     dialog.classList.add("invisible");
   });
 
@@ -224,9 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("company-dialog-close")
     .addEventListener("click", () => {
-      console.log("クリックされた");
       const dialog = document.getElementById("company-dialog");
-      console.log(dialog);
       dialog.classList.add("invisible");
     });
 
@@ -234,9 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * 会社概要モーダルを閉じる（画面）
    */
   document.getElementById("company-dialog").addEventListener("click", () => {
-    console.log("クリックされた");
     const dialog = document.getElementById("company-dialog");
-    console.log(dialog);
     dialog.classList.add("invisible");
   });
 
@@ -395,7 +387,30 @@ document.addEventListener("DOMContentLoaded", () => {
           body: JSON.stringify(data),
         });
 
-        // const result = await res.json();
+        //年齢確認用（55歳以上は除外）
+        const birthYearRaw = data?.birth;
+        let isAgeOverLimit = false;
+
+        if (birthYearRaw) {
+          const birthYear = Number(birthYearRaw);
+          const currentYear = new Date().getFullYear();
+
+          // 異常値でなければ計算する（異常値なら無視 → falseのまま）
+          const isValidBirthYear =
+            !isNaN(birthYear) && birthYear >= 1900 && birthYear <= currentYear;
+
+          if (isValidBirthYear) {
+            const age = currentYear - birthYear;
+
+            if (age >= 55) {
+              isAgeOverLimit = true;
+            }
+          }
+        }
+
+        // 年齢上限フラグを sessionStorage に保存
+        sessionStorage.setItem("isAgeOverLimit", String(isAgeOverLimit));
+
         if (res.ok) {
           if (!isTest) {
             if (data.adMedia == "meta") {
