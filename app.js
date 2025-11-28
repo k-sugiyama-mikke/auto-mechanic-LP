@@ -501,6 +501,14 @@ document.addEventListener("DOMContentLoaded", () => {
         formData.adMedia = "yahoo";
         formData.utmMedium = params.get("utm_medium") || "";
         break;
+      case "tiktok":
+        formData.adMedia = "tiktok";
+        // formData.metaPlatform = utmSource;
+        // formData.utmSource = utmSource;
+        // formData.metaCampaignId = params.get("utm_campaign_id") || "";
+        // formData.metaCampainName = params.get("utm_campaign") || "";
+        // formData.metaAdName = params.get("ad_name") || "";
+        break;
 
       default:
         break;
