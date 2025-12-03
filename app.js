@@ -342,6 +342,7 @@ document.addEventListener("DOMContentLoaded", () => {
           submitBtnDisabled();
         }
 
+        fireConversion(5);
         break;
 
       default:
