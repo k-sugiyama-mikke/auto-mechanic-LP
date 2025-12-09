@@ -45,9 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
   tel.setAttribute("inputmode", "numeric");
   tel.setAttribute("maxlength", "11");
 
-  //電話番号フォームの文字数制限
-  const currentJobDate = document.getElementById("current-job-date");
-  currentJobDate.textContent = getCurrentDate();
+  //   const currentJobDate = document.getElementById("current-job-date");
+  //   currentJobDate.textContent = getCurrentDate();
 
   function getCurrentDate() {
     const today = new Date();
